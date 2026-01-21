@@ -1,10 +1,7 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -40,6 +37,7 @@ public class EnemyManager : MonoBehaviour
         SpawnEnemies();
 
         StartCoroutine(HandleEnemyMovement());
+        StartCoroutine(EnemyShooting());
     }
 
     private void SpawnEnemies()
@@ -131,7 +129,19 @@ public class EnemyManager : MonoBehaviour
 
     IEnumerator EnemyShooting()
     {
-        yield break;
+       while (true)
+        {
+            yield return new WaitUntil(() => !GameManager.Instance.IsPause && !isExploding);
+
+            yield return new WaitForSeconds(Random.Range(missileInterval, missileInterval * 2));
+            List<GameObject> shooters = GetBottomEnemies();
+            if (shooters.Count > 0 && !GameManager.Instance.IsPause && !isExploding)
+            {
+                GameObject shooter = shooters[Random.Range(0, shooters.Count)];
+
+                FireMissile(shooter);
+            }
+        }
     }
 
     private List<GameObject> GetBottomEnemies()
@@ -158,7 +168,7 @@ public class EnemyManager : MonoBehaviour
         if (firePoint != null)
         {
             //TODO : Implémenter le pool de missile 
-
+            Instantiate(missilePrefab, firePoint.position, Quaternion.identity);
         }
         else
         {
