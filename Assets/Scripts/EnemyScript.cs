@@ -23,7 +23,7 @@ public class EnemyScript : MonoBehaviour
             Debug.Log("[EnemyScript] SpriteRenderer is not assigned");
         }
     }
-    private void ChangeSprite()
+    public void ChangeSprite()
     {
         isSprite01 = !isSprite01;
         // spriteRenderer.sprite = (condition) ? (si vrai) : (si faux)
