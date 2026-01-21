@@ -20,7 +20,7 @@ public class EnemyManager : MonoBehaviour
 
     private GameObject[,] enemies;
     private bool isPaused = false;
-    private bool isExploding = false;
+    public bool isExploding = false;
 
     private enum MoveState { MoveRight, MoveLeft }
     private MoveState currentState = MoveState.MoveRight;
@@ -28,6 +28,8 @@ public class EnemyManager : MonoBehaviour
     public GameObject missilePrefab;
     public Transform missilePoint;
     public float missileInterval = 2.0f;
+
+    public float timeWhenTouched = 0.5f;
 
     void Start()
     {
@@ -125,6 +127,13 @@ public class EnemyManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public IEnumerator TimeWhenTouched()
+    {
+        
+        yield return new WaitForSeconds(timeWhenTouched);
+        isExploding = false;
     }
 
     IEnumerator EnemyShooting()

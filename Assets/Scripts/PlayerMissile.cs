@@ -29,6 +29,8 @@ public class PlayerMissile : MonoBehaviour
             if (enemyManager != null)
             {
                 enemyManager.ReturnEnemy(collision.gameObject, collision.gameObject);
+                enemyManager.isExploding = true;
+                enemyManager.StartCoroutine(enemyManager.TimeWhenTouched());
             }
 
             ResetMissle();
