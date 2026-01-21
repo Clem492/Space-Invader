@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6247517802826197977}
   - component: {fileID: 2350865217543102598}
   - component: {fileID: 8476049387956108236}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EnemyA
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,7 +147,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -175,5 +175,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78fcd1dfa3bd01642a8f2cdfd41822b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType:
+    name: 
+    points: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    prefab: {fileID: 0}
+  ScoreData: 0
   sprite01: {fileID: 21300000, guid: a080c1089a32f3b4e8579415cf9c48b8, type: 3}
   sprite02: {fileID: 21300000, guid: c1f0c3b7caa4bf24ca9b01b3c8e0a797, type: 3}

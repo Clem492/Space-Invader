@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -128,6 +129,43 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    IEnumerator EnemyShooting()
+    {
+        yield break;
+    }
+
+    private List<GameObject> GetBottomEnemies()
+    {
+        List<GameObject> bottomEnemies = new List<GameObject>();
+        for (int col = 0; col <cols; col++)
+        {
+            for(int row = rows - 1; row >= 0; row--)
+            {
+                if (enemies[row, col] != null && enemies[row, col].activeSelf)
+                {
+                    bottomEnemies.Add(enemies[row, col]);
+                    break;
+                }
+            }
+        }
+        return bottomEnemies;
+    }
+
+    private void FireMissile(GameObject shooter)
+    {
+        //rechercher le Fire Point dans les enfants de l'enemie
+        Transform firePoint = shooter.transform.Find("FirePoint");
+        if (firePoint != null)
+        {
+            //TODO : Implémenter le pool de missile 
+
+        }
+        else
+        {
+            Debug.Log($"FirePoint non trouvé pour l'enemi : {shooter.name}");
+        }
+    }
+
     private void MoveEnemy(GameObject enemy, Vector3 direction, float stepDistance)
     {
         Vector3 newPosition = enemy.transform.position + direction * stepDistance;
@@ -137,6 +175,21 @@ public class EnemyManager : MonoBehaviour
         newPosition.z = Mathf.Round(newPosition.z * 100f) / 100f;
 
         enemy.transform.position = newPosition;
+    }
+
+    public void ReturnEnemy(GameObject enemy, GameObject prefab)
+    {
+        for (int row= 0; row < rows; row++)
+        {
+            for (int col= 0; col < cols; col++)
+            {
+                if (enemies[row, col] == enemy)
+                {
+                    enemies[row, col] = null;
+                }
+            }
+        }
+        enemyPool.ReturnToPool(enemy, prefab);
     }
 
     private bool ReachedBoundery(GameObject enemy)
