@@ -44,7 +44,7 @@ public class MissilManager : MonoBehaviour
 
     private void onFire (InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && !GameManager.Instance.IsPause)
+        if (ctx.performed && !GameManager.Instance.IsPaused)
         {
             //vérifier si un missile incactif est disponible.
             for (int i = 0; i < poolSize; i++)

@@ -29,7 +29,9 @@ public class EnemyManager : MonoBehaviour
     public Transform missilePoint;
     public float missileInterval = 2.0f;
 
-    public float timeWhenTouched = 0.5f;
+    public int explosionDuration = 17;
+
+    private int remainingEnemies;
 
     void Start()
     {
@@ -41,6 +43,8 @@ public class EnemyManager : MonoBehaviour
         StartCoroutine(HandleEnemyMovement());
         StartCoroutine(EnemyShooting());
     }
+
+    
 
     private void SpawnEnemies()
     {
@@ -70,6 +74,7 @@ public class EnemyManager : MonoBehaviour
                     }
 
                     enemies[row, col] = enemy;
+                    remainingEnemies++;
                 }
             }
         }
@@ -79,7 +84,7 @@ public class EnemyManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitUntil(() => !GameManager.Instance.IsPause && !isExploding);
+            
 
             bool boundaryReached = false;
 
@@ -87,10 +92,12 @@ public class EnemyManager : MonoBehaviour
             {
                 for (int col = 0; col < cols; col++)
                 {
+                    
                     if (enemies[row, col] != null && enemies[row, col].activeSelf)
                     {
+                        yield return new WaitUntil(() => !GameManager.Instance.IsPaused && !isExploding);
                         Vector3 direction = currentState == MoveState.MoveRight ? Vector3.right : Vector3.left;
-
+                        
                         MoveEnemy(enemies[row, col], direction, _stepDistance);
 
                         EnemyScript enemyScript = enemies[row, col].GetComponent<EnemyScript>();
@@ -129,22 +136,17 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public IEnumerator TimeWhenTouched()
-    {
-        
-        yield return new WaitForSeconds(timeWhenTouched);
-        isExploding = false;
-    }
+    
 
     IEnumerator EnemyShooting()
     {
        while (true)
         {
-            yield return new WaitUntil(() => !GameManager.Instance.IsPause && !isExploding);
+            yield return new WaitUntil(() => !GameManager.Instance.IsPaused && !isExploding);
 
             yield return new WaitForSeconds(Random.Range(missileInterval, missileInterval * 2));
             List<GameObject> shooters = GetBottomEnemies();
-            if (shooters.Count > 0 && !GameManager.Instance.IsPause && !isExploding)
+            if (shooters.Count > 0 && !GameManager.Instance.IsPaused && !isExploding)
             {
                 GameObject shooter = shooters[Random.Range(0, shooters.Count)];
 
@@ -205,10 +207,33 @@ public class EnemyManager : MonoBehaviour
                 if (enemies[row, col] == enemy)
                 {
                     enemies[row, col] = null;
+
                 }
             }
         }
+
+        GameManager.Instance.AddScore(enemy.GetComponent<EnemyScript>().ScoreData);
         enemyPool.ReturnToPool(enemy, prefab);
+        remainingEnemies--;
+        if (remainingEnemies <= 0)
+        {
+            GameManager.Instance.CompletedLevel();
+        }
+        if (!isExploding)
+            StartCoroutine(ExplosionCoroutine());
+    }
+
+    IEnumerator ExplosionCoroutine()
+    {
+        isExploding = true;
+
+        int duratin = explosionDuration;
+        while (duratin > 0)
+        {
+            duratin--;
+            yield return new WaitForEndOfFrame();
+        }
+        isExploding = false;
     }
 
     private bool ReachedBoundery(GameObject enemy)

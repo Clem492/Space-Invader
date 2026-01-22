@@ -16,7 +16,7 @@ public class PlayerMissile : MonoBehaviour
     
     }
 
-    private void ResetMissle()
+    public void ResetMissle()
     {
         gameObject.SetActive(false);
     }
@@ -29,11 +29,12 @@ public class PlayerMissile : MonoBehaviour
             if (enemyManager != null)
             {
                 enemyManager.ReturnEnemy(collision.gameObject, collision.gameObject);
-                enemyManager.isExploding = true;
-                enemyManager.StartCoroutine(enemyManager.TimeWhenTouched());
+
+
+                ResetMissle();
+
             }
 
-            ResetMissle();
         }
         
     }

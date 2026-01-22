@@ -68,7 +68,7 @@ public class PlayerScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameManager.Instance.IsPause) return;
+        if (GameManager.Instance.IsPaused) return;
 
         if (Mathf.Approximately(targetSpeed - currentSpeed, 0) && currentState != PlayerState.Idle)
         {

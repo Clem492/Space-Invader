@@ -16,7 +16,7 @@ public class EnemyMissile : MonoBehaviour
 
     }
 
-    private void ResetMissle()
+    public void ResetMissle()
     {
         gameObject.SetActive(false);
     }
