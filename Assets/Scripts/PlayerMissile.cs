@@ -5,6 +5,10 @@ public class PlayerMissile : MonoBehaviour
     public float speed = 10f;
     public float maxHeight = 10f;
 
+    [SerializeField] private EnemyManager enemyManager;
+    [SerializeField] private GameObject explosionEnemi;
+
+
     private void Update()
     {
         transform.Translate(Vector3.up *  speed * Time.deltaTime);
@@ -28,15 +32,18 @@ public class PlayerMissile : MonoBehaviour
             EnemyManager enemyManager = FindFirstObjectByType<EnemyManager>();
             if (enemyManager != null)
             {
-                enemyManager.ReturnEnemy(collision.gameObject, collision.gameObject);
+                GameObject go = collision.GetComponent<EnemyScript>().EnemyType.prefab;
+                enemyManager.ReturnEnemy(collision.gameObject, go);
 
 
                 ResetMissle();
-
+                GameManager.Instance.SaveScore();
+                
             }
 
         }
         
     }
+    
 
 }

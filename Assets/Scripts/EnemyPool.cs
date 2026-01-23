@@ -40,10 +40,8 @@ public class EnemyPool : MonoBehaviour
 
     public GameObject GetEnemy(GameObject prefab)
     {
-        Debug.Log("j'entre dans le get enemy");
         if (poolDictionary.TryGetValue(prefab, out Queue<GameObject> enemyQueue) && enemyQueue.Count > 0)
         {
-            Debug.Log("la condition est chelou mais je rentre");
             GameObject enemy = enemyQueue.Dequeue();
             enemy.SetActive(true);
 
@@ -56,7 +54,7 @@ public class EnemyPool : MonoBehaviour
     public void ReturnToPool(GameObject enemy, GameObject prefab)
     {
         enemy.SetActive(false);
-        if (poolDictionary.TryGetValue(prefab, out Queue<GameObject> enemyQueue))
+        if (poolDictionary.TryGetValue(prefab, out var enemyQueue))
         {
             enemyQueue.Enqueue(enemy);
         }
@@ -85,9 +83,5 @@ public class EnemyPool : MonoBehaviour
                 return 0;
         }
     }
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.Log(poolDictionary.Count);
-    }
+
 }

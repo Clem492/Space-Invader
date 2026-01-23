@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
    public static GameManager Instance;
 
     public bool IsPaused = false;
-
+    public bool isExploding = false;
     private InputSystem_Actions controls;
 
     [SerializeField]
@@ -35,6 +35,13 @@ public class GameManager : MonoBehaviour
         controls = new InputSystem_Actions();
         controls.UI.Pause.performed += ctx => Pause();
     }
+
+    private void Start()
+    {
+        GetHightScore();
+       
+    }
+
     private void OnEnable()
     {
         controls.UI.Pause.Enable();
@@ -77,7 +84,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void GameOver()
+    public void GameOver()
     {
         //TODO: Implémenter le GameOver
         SaveScore();
@@ -86,9 +93,10 @@ public class GameManager : MonoBehaviour
     public void CompletedLevel()
     {
         //TODO : Implémenter le completed levels
+        
     }
 
-    private void SaveScore()
+    public void SaveScore()
     {
         if (score > hightScore)
         {
@@ -101,6 +109,16 @@ public class GameManager : MonoBehaviour
     private void GetHightScore()
     {
         hightScore = PlayerPrefs.GetInt("Score", score);
-
+        if (hightScore.ToString().Length <= 2)
+        {
+            _hightScore.text = "00 " + hightScore.ToString();
+            return;
+        }
+        if (hightScore.ToString().Length == 3)
+        {
+            _hightScore.text = "0" + hightScore.ToString();
+            return;
+        }
+        _hightScore.text = hightScore.ToString();
     }
 }

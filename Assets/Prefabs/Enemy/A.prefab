@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3244188434771882690}
   - component: {fileID: -1805077127528692185}
   m_Layer: 0
-  m_Name: enemyMissile
+  m_Name: A
   m_TagString: Missile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,10 +79,10 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 38e30152fc257564fa9f740ce08f8145, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 56bf7fe21bdf18447b528279d8d80005, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 0
+  m_FlipY: 1
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
@@ -98,7 +98,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2400328452157108031}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -155,7 +155,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 12, y: 28}
+    oldSize: {x: 12, y: 24}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -177,3 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   minHeight: -10
+  MissileFrame1: {fileID: 21300000, guid: 56bf7fe21bdf18447b528279d8d80005, type: 3}
+  MissileFrame2: {fileID: 21300000, guid: 86e908c026ff21d4794afa8b7badbca6, type: 3}
+  MissileFrame3: {fileID: 21300000, guid: c99a5b0cbd8d4474f82ff0bce6611675, type: 3}
+  MissileFrame4: {fileID: 21300000, guid: 40877748d7862444e8e8a22bc31a9322, type: 3}

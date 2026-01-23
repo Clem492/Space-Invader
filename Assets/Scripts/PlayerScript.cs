@@ -111,7 +111,6 @@ public class PlayerScript : MonoBehaviour
 
         rb.MovePosition(new Vector2(newXPosition, rb.position.y));
 
-        Debug.Log($"State : {currentState}, CurrentSpeed : {currentSpeed}, TargetSpeed : {targetSpeed}, Move Input : {moveInput}, DecelTime : {decelTime}, AccelTime : {accelTime}");
     }
 
     private void HandheldMovePressed(InputAction.CallbackContext ctx)
@@ -177,7 +176,6 @@ public class PlayerScript : MonoBehaviour
         // Calculer boundary en fonction du pourcentage de l'écran
         boundary = screenBounds.x * boundaryPercentage;
 
-        Debug.Log("Boundary calculé : " + boundary);
     }
 
     private void OnDrawGizmos()

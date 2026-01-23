@@ -20,16 +20,21 @@ public class EnemyManager : MonoBehaviour
 
     private GameObject[,] enemies;
     private bool isPaused = false;
-    public bool isExploding = false;
+    
 
     private enum MoveState { MoveRight, MoveLeft }
     private MoveState currentState = MoveState.MoveRight;
 
-    public GameObject missilePrefab;
+    public GameObject missileAPrefab;
+    public GameObject LaserPrefab;
+    public GameObject MissileCPrefab;
     public Transform missilePoint;
     public float missileInterval = 2.0f;
 
     public int explosionDuration = 17;
+    public GameObject explosionPrefab;
+    private GameObject explosionDurationFrame;
+
 
     private int remainingEnemies;
 
@@ -44,8 +49,14 @@ public class EnemyManager : MonoBehaviour
         StartCoroutine(EnemyShooting());
     }
 
-    
+    private enum Missile
+    {
+        MissileAPrefab,
+        LaserPrefab,
+        MissileCPrefab
+    }
 
+    private Missile missile = Missile.MissileAPrefab;
     private void SpawnEnemies()
     {
         var enemyTypes = enemyPool.GetEnemyTypes();
@@ -62,7 +73,6 @@ public class EnemyManager : MonoBehaviour
                     float xPos = startPosition.x + (col * spacing);
                     float yPos = startPosition.y - (row * spacing);
 
-                    Debug.Log($"[EnemyManager] {enemy.name} est Ã  la position X: {xPos}; Y: {yPos}");
 
                     enemy.transform.position = new Vector3(xPos, yPos, 0);
 
@@ -82,7 +92,7 @@ public class EnemyManager : MonoBehaviour
 
     IEnumerator HandleEnemyMovement()
     {
-        while (true)
+        while (remainingEnemies >0)
         {
             
 
@@ -95,10 +105,15 @@ public class EnemyManager : MonoBehaviour
                     
                     if (enemies[row, col] != null && enemies[row, col].activeSelf)
                     {
-                        yield return new WaitUntil(() => !GameManager.Instance.IsPaused && !isExploding);
+                        yield return new WaitUntil(() => !GameManager.Instance.IsPaused && !GameManager.Instance.isExploding);
                         Vector3 direction = currentState == MoveState.MoveRight ? Vector3.right : Vector3.left;
                         
                         MoveEnemy(enemies[row, col], direction, _stepDistance);
+
+                        if (enemies[row, col] == null)
+                        {
+                            continue;
+                        }
 
                         EnemyScript enemyScript = enemies[row, col].GetComponent<EnemyScript>();
                         if (enemyScript != null) enemyScript.ChangeSprite();
@@ -142,11 +157,11 @@ public class EnemyManager : MonoBehaviour
     {
        while (true)
         {
-            yield return new WaitUntil(() => !GameManager.Instance.IsPaused && !isExploding);
+            yield return new WaitUntil(() => !GameManager.Instance.IsPaused && !GameManager.Instance.isExploding);
 
             yield return new WaitForSeconds(Random.Range(missileInterval, missileInterval * 2));
             List<GameObject> shooters = GetBottomEnemies();
-            if (shooters.Count > 0 && !GameManager.Instance.IsPaused && !isExploding)
+            if (shooters.Count > 0 && !GameManager.Instance.IsPaused && !GameManager.Instance.isExploding)
             {
                 GameObject shooter = shooters[Random.Range(0, shooters.Count)];
 
@@ -179,7 +194,24 @@ public class EnemyManager : MonoBehaviour
         if (firePoint != null)
         {
             //TODO : Implémenter le pool de missile 
-            Instantiate(missilePrefab, firePoint.position, Quaternion.identity);
+
+            
+            if (missile == Missile.MissileAPrefab)
+            {
+                Instantiate(missileAPrefab, firePoint.position, Quaternion.identity);
+                missile = Missile.LaserPrefab;
+            }
+            else if (missile == Missile.LaserPrefab)
+            {
+                Instantiate(LaserPrefab, firePoint.position, Quaternion.identity);
+                missile = Missile.MissileCPrefab;
+            }
+            else if (missile == Missile.MissileCPrefab)
+            {
+                Instantiate(MissileCPrefab, firePoint.position, Quaternion.identity);
+                missile = Missile.MissileAPrefab;
+            }
+            
         }
         else
         {
@@ -189,6 +221,11 @@ public class EnemyManager : MonoBehaviour
 
     private void MoveEnemy(GameObject enemy, Vector3 direction, float stepDistance)
     {
+        if (enemy == null)
+        {
+            return;
+        }
+
         Vector3 newPosition = enemy.transform.position + direction * stepDistance;
 
         newPosition.x = Mathf.Round(newPosition.x * 100f) / 100f;
@@ -214,18 +251,19 @@ public class EnemyManager : MonoBehaviour
 
         GameManager.Instance.AddScore(enemy.GetComponent<EnemyScript>().ScoreData);
         enemyPool.ReturnToPool(enemy, prefab);
+        explosionDurationFrame = Instantiate(explosionPrefab, enemy.transform.position, Quaternion.identity);
         remainingEnemies--;
         if (remainingEnemies <= 0)
         {
             GameManager.Instance.CompletedLevel();
         }
-        if (!isExploding)
+        if (!GameManager.Instance.isExploding)
             StartCoroutine(ExplosionCoroutine());
     }
 
     IEnumerator ExplosionCoroutine()
     {
-        isExploding = true;
+        GameManager.Instance.isExploding = true;
 
         int duratin = explosionDuration;
         while (duratin > 0)
@@ -233,7 +271,8 @@ public class EnemyManager : MonoBehaviour
             duratin--;
             yield return new WaitForEndOfFrame();
         }
-        isExploding = false;
+        GameManager.Instance.isExploding = false;
+        Destroy(explosionDurationFrame);
     }
 
     private bool ReachedBoundery(GameObject enemy)
