@@ -38,7 +38,7 @@ public class EnemyMissile : MonoBehaviour
         {
 
             
-            Destroy(collision.gameObject);
+            collision.GetComponent<PlayerScript>().StartCoroutine(collision.GetComponent<PlayerScript>().ExplosionAnimation());
             ResetMissle();
             GameManager.Instance.GameOver();
         }

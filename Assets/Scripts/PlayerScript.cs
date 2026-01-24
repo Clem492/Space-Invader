@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -28,6 +30,20 @@ public class PlayerScript : MonoBehaviour
 
     [Range(0f, 1f)]
     public float boundaryPercentage = 0.8f;
+
+    //Déclarations des variables pour l'animations d'explosion du Player
+    private SpriteRenderer spriteRenderer;
+    private int playerExplosionDuration = 11;
+    private int spriteDuration = 6;
+    public Sprite PlayerSprite;
+    public Sprite explosionASprite;
+    public Sprite explosionBSprite;
+
+    //Déclaration de toutes les variables utiliser pour le sytème de la vie pour le Player
+    public int lifes = 3;
+    public Image life1;
+    public Image life2;
+    public Image life3;
 
     private enum PlayerState
     {
@@ -65,6 +81,12 @@ public class PlayerScript : MonoBehaviour
         controls.Player.Disable();
     }
     #endregion
+
+    private void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        StartCoroutine(ExplosionAnimation());
+    }
 
     void FixedUpdate()
     {
@@ -164,6 +186,39 @@ public class PlayerScript : MonoBehaviour
         {
             currentSpeed = 0f;
             decelTime = 0f;
+        }
+    }
+
+    public IEnumerator ExplosionAnimation()
+    {
+        GameManager.Instance.isExploding = true;
+        for (int i  = 0; i < playerExplosionDuration; i++)
+        {
+            spriteRenderer.sprite = explosionASprite;
+            for (int j = 0; j < spriteDuration; j++)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+            spriteRenderer.sprite = explosionBSprite;
+
+        }
+        gameObject.SetActive(false);
+        DecrementLife();
+        //Enlever une image de vie et decrémenter le text
+        spriteRenderer.sprite = PlayerSprite;
+        //implémenter le bon positionnement 
+        yield return new WaitForSeconds(3.275f);
+        gameObject.SetActive(true);
+        GameManager.Instance.isExploding = false;
+
+    }
+
+    private void DecrementLife()
+    {
+        lifes--;
+        if (lifes == 0)
+        {
+            GameManager.Instance.GameOver();
         }
     }
 
