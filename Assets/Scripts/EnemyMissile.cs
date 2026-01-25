@@ -38,7 +38,7 @@ public class EnemyMissile : MonoBehaviour
         {
 
             
-            collision.GetComponent<PlayerScript>().StartCoroutine(collision.GetComponent<PlayerScript>().ExplosionAnimation());
+            collision.GetComponent<PlayerScript>().StartCoroutine(collision.GetComponent<PlayerScript>().DoPlayerExplosionAnimation());
             ResetMissle();
             GameManager.Instance.GameOver();
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Xml.Serialization;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -33,17 +34,13 @@ public class PlayerScript : MonoBehaviour
 
     //Déclarations des variables pour l'animations d'explosion du Player
     private SpriteRenderer spriteRenderer;
-    private int playerExplosionDuration = 11;
+    private int playerExplosionDuration = 9;
     private int spriteDuration = 6;
     public Sprite PlayerSprite;
     public Sprite explosionASprite;
     public Sprite explosionBSprite;
 
-    //Déclaration de toutes les variables utiliser pour le sytème de la vie pour le Player
-    public int lifes = 3;
-    public Image life1;
-    public Image life2;
-    public Image life3;
+    private Vector3 StartPos = new Vector3(-9.42f, -9.24f, 0);
 
     private enum PlayerState
     {
@@ -85,7 +82,7 @@ public class PlayerScript : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        StartCoroutine(ExplosionAnimation());
+        gameObject.transform.position = StartPos;
     }
 
     void FixedUpdate()
@@ -189,38 +186,37 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    public IEnumerator ExplosionAnimation()
+    public IEnumerator DoPlayerExplosionAnimation()
     {
-        GameManager.Instance.isExploding = true;
-        for (int i  = 0; i < playerExplosionDuration; i++)
+        GameManager.Instance.IsPaused = true;
+        bool terst = false;
+        for (int i = 0; i < playerExplosionDuration; i++)
         {
-            spriteRenderer.sprite = explosionASprite;
+            terst = !terst;
+            spriteRenderer.sprite = terst ? explosionASprite : explosionBSprite;
             for (int j = 0; j < spriteDuration; j++)
             {
                 yield return new WaitForEndOfFrame();
             }
-            spriteRenderer.sprite = explosionBSprite;
-
         }
-        gameObject.SetActive(false);
-        DecrementLife();
-        //Enlever une image de vie et decrémenter le text
+
+        spriteRenderer.enabled = false;
+        GameManager.Instance.LoseLife();
+        gameObject.transform.position = StartPos;
         spriteRenderer.sprite = PlayerSprite;
         //implémenter le bon positionnement 
-        yield return new WaitForSeconds(3.275f);
-        gameObject.SetActive(true);
-        GameManager.Instance.isExploding = false;
-
-    }
-
-    private void DecrementLife()
-    {
-        lifes--;
-        if (lifes == 0)
+        for (int i = 0; i < 130; i++)
         {
-            GameManager.Instance.GameOver();
+            yield return new WaitForEndOfFrame();
         }
+
+        spriteRenderer.enabled = true;
+        currentSpeed = 0f;
+        GameManager.Instance.IsPaused = false;
+
     }
+
+    
 
     #region CalculateBoundary & Debug Gizmos
     private void CalculateBoundary()

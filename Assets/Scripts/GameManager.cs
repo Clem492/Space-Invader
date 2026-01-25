@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,10 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI _scoreUI;
     [SerializeField]
     private TextMeshProUGUI _hightScore;
+    [SerializeField]
+    private TextMeshProUGUI lifeText;
+    [SerializeField]
+    private Image lifeOne, lifeTwo; 
 
     private void Awake()
     {
@@ -39,7 +44,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         GetHightScore();
-       
+        ResetUIScreen();
+
+
     }
 
     private void OnEnable()
@@ -78,9 +85,29 @@ public class GameManager : MonoBehaviour
     public void LoseLife()
     {
         lives--;
+        ResetUIScreen();
+        lifeText.text = "" + lives;
         if (lives == 0)
         {
             GameOver();
+        }
+    }
+
+    private void ResetUIScreen()
+    {
+        lifeText.text = ""+ lives;
+        if (lives == 3)
+        {
+            lifeOne.enabled = true;
+            lifeTwo.enabled = true;
+        }
+        if (lives == 2)
+        {
+            lifeTwo.enabled = false;
+        }
+        if (lives == 1)
+        {
+            lifeOne.enabled = false;
         }
     }
 
