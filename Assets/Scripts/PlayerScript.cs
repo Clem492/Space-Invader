@@ -186,7 +186,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    public IEnumerator DoPlayerExplosionAnimation()
+    public IEnumerator DoPlayerExplosion()
     {
         GameManager.Instance.IsPaused = true;
         bool terst = false;

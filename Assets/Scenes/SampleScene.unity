@@ -462,7 +462,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2135344726}
   - {fileID: 186741877}
   - {fileID: 1607201737}
   - {fileID: 1480815611}
@@ -1106,6 +1105,9 @@ MonoBehaviour:
   score: 0
   _scoreUI: {fileID: 2024892665}
   _hightScore: {fileID: 63923596}
+  lifeText: {fileID: 1480815612}
+  lifeOne: {fileID: 1607201738}
+  lifeTwo: {fileID: 186741878}
 --- !u!4 &824491127
 Transform:
   m_ObjectHideFlags: 0
@@ -1468,7 +1470,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1694,7 +1696,7 @@ MonoBehaviour:
   LaserPrefab: {fileID: 5967669586785746476, guid: 60a1bd2118e1904468ce11320f11ccee, type: 3}
   MissileCPrefab: {fileID: 3941086699199084542, guid: f72a2834d669d694f8b203705f3e0431, type: 3}
   missilePoint: {fileID: 0}
-  missileInterval: 2
+  missileInterval: 0.1
   explosionDuration: 17
   explosionPrefab: {fileID: 8071882685111860440, guid: f3e773415dc77134bb7c5c679113a83f, type: 3}
 --- !u!114 &2001377357
@@ -1960,81 +1962,6 @@ MonoBehaviour:
   missilePrefab: {fileID: 1041019289899147033, guid: 31bd2df92ee44544eb5ac3fe90c78bb1, type: 3}
   firePoint: {fileID: 737304366}
   poolSize: 1
---- !u!1 &2135344725
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2135344726}
-  - component: {fileID: 2135344728}
-  - component: {fileID: 2135344727}
-  m_Layer: 5
-  m_Name: Vie
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2135344726
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2135344725}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.575, y: 0.36719337, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 189593356}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -627.8, y: -454}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2135344727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2135344725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.0014780659, g: 0.990566, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a562a0b3dc6b85f4bb916ce41fd3acad, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &2135344728
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2135344725}
-  m_CullTransparentMesh: 1
 --- !u!1001 &845822195328900813
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2134,7 +2061,7 @@ PrefabInstance:
     - target: {fileID: 2267484363628352002, guid: a3d9e64b71725ff459e301a2707aa85c, type: 3}
       propertyPath: life1
       value: 
-      objectReference: {fileID: 2135344727}
+      objectReference: {fileID: 0}
     - target: {fileID: 2267484363628352002, guid: a3d9e64b71725ff459e301a2707aa85c, type: 3}
       propertyPath: life2
       value: 
