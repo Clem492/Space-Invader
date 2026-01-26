@@ -29,6 +29,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI gameOverText;
 
+
+    [SerializeField] RectTransform coinPanel;
+    [SerializeField] RectTransform rulesPanel;
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject shield1,shield2,shield3,shield4;
+
     private void Awake()
     {
         if (Instance == null)
@@ -47,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         GetHightScore();
         ResetUIScreen();
-
+        MainMenu();
 
     }
 
@@ -118,25 +124,10 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         //TODO: Implémenter le GameOver
-        StartCoroutine(PrintCharactere());
+        
         SaveScore();
     }
 
-    IEnumerator PrintCharactere()
-    {
-        string gameOver = "Game Over";
-
-        foreach (char c in gameOver)
-        {
-            gameOverText.text += "" + c;
-            for (int i = 0; i < 7; i++)
-            {
-                yield return new WaitForEndOfFrame();
-            }
-        }
-
-
-    }
     public void CompletedLevel()
     {
         //TODO : Implémenter le completed levels
@@ -167,5 +158,22 @@ public class GameManager : MonoBehaviour
             return;
         }
         _hightScore.text = hightScore.ToString();
+    }
+
+
+    private void MainMenu()
+    {
+        IsPaused = true;
+        coinPanel.gameObject.SetActive(true);
+        rulesPanel.gameObject.SetActive(false);
+        lifeOne.enabled = false;
+        lifeTwo.enabled = false;
+        lifeText.enabled = false;
+        player.SetActive(false);
+        shield1.SetActive(false);
+        shield2.SetActive(false);
+        shield3.SetActive(false);
+        shield4.SetActive(false);
+
     }
 }
