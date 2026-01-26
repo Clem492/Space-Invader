@@ -1,7 +1,7 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private int score = 0;
     private int hightScore = 0;
 
-    private int lives = 3;
+    public int lives = 3;
 
     [SerializeField]
     private TextMeshProUGUI _scoreUI;
@@ -25,7 +25,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI lifeText;
     [SerializeField]
-    private Image lifeOne, lifeTwo; 
+    private Image lifeOne, lifeTwo;
+    [SerializeField]
+    private TextMeshProUGUI gameOverText;
 
     private void Awake()
     {
@@ -98,6 +100,7 @@ public class GameManager : MonoBehaviour
         lifeText.text = ""+ lives;
         if (lives == 3)
         {
+            gameOverText.enabled = false;
             lifeOne.enabled = true;
             lifeTwo.enabled = true;
         }
@@ -109,14 +112,31 @@ public class GameManager : MonoBehaviour
         {
             lifeOne.enabled = false;
         }
+        else gameOverText.enabled = true;
     }
 
     public void GameOver()
     {
         //TODO: Implémenter le GameOver
+        StartCoroutine(PrintCharactere());
         SaveScore();
     }
 
+    IEnumerator PrintCharactere()
+    {
+        string gameOver = "Game Over";
+
+        foreach (char c in gameOver)
+        {
+            gameOverText.text += "" + c;
+            for (int i = 0; i < 7; i++)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+        }
+
+
+    }
     public void CompletedLevel()
     {
         //TODO : Implémenter le completed levels

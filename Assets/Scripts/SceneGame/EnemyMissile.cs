@@ -40,7 +40,7 @@ public class EnemyMissile : MonoBehaviour
             
             collision.GetComponent<PlayerScript>().StartCoroutine(collision.GetComponent<PlayerScript>().DoPlayerExplosion());
             ResetMissle();
-            GameManager.Instance.GameOver();
+            
         }
 
     }
