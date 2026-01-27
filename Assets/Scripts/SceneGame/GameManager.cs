@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -13,7 +15,7 @@ public class GameManager : MonoBehaviour
     private InputSystem_Actions controls;
 
     [SerializeField]
-    private int score = 0;
+    public int score = 0;
     private int hightScore = 0;
 
     public int lives = 3;
@@ -34,7 +36,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] RectTransform rulesPanel;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject shield1,shield2,shield3,shield4;
-
+    private GameMenu currentMenu;
     private void Awake()
     {
         if (Instance == null)
@@ -53,8 +55,13 @@ public class GameManager : MonoBehaviour
     {
         GetHightScore();
         ResetUIScreen();
-        MainMenu();
+        CoinMenu();
 
+    }
+
+    private void Update()
+    {
+        WhatMenu();
     }
 
     private void OnEnable()
@@ -70,6 +77,7 @@ public class GameManager : MonoBehaviour
         IsPaused = !IsPaused;
     }
 
+    private enum GameMenu { CoinMenu, RulesMenu, Game}
     
     public void AddScore(int points)
     {
@@ -97,7 +105,8 @@ public class GameManager : MonoBehaviour
         lifeText.text = "" + lives;
         if (lives == 0)
         {
-            GameOver();
+            IsPaused = true;
+            StartCoroutine(GameOver());
         }
     }
 
@@ -106,7 +115,7 @@ public class GameManager : MonoBehaviour
         lifeText.text = ""+ lives;
         if (lives == 3)
         {
-            gameOverText.enabled = false;
+            
             lifeOne.enabled = true;
             lifeTwo.enabled = true;
         }
@@ -118,14 +127,16 @@ public class GameManager : MonoBehaviour
         {
             lifeOne.enabled = false;
         }
-        else gameOverText.enabled = true;
+        
     }
 
-    public void GameOver()
+    public IEnumerator GameOver()
     {
-        //TODO: Implémenter le GameOver
         
+        gameOverText.GetComponent<TextManager>().enabled = true;
         SaveScore();
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene("game");
     }
 
     public void CompletedLevel()
@@ -161,19 +172,47 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void MainMenu()
+    private void CoinMenu()
     {
+        currentMenu = GameMenu.CoinMenu;
         IsPaused = true;
         coinPanel.gameObject.SetActive(true);
         rulesPanel.gameObject.SetActive(false);
-        lifeOne.enabled = false;
-        lifeTwo.enabled = false;
-        lifeText.enabled = false;
-        player.SetActive(false);
-        shield1.SetActive(false);
-        shield2.SetActive(false);
-        shield3.SetActive(false);
-        shield4.SetActive(false);
 
+
+    }
+
+    private void RulesMenu()
+    {
+        currentMenu = GameMenu.RulesMenu;
+        IsPaused = true;
+        coinPanel.gameObject.SetActive(false);
+        rulesPanel.gameObject.SetActive(true);
+    }
+
+    private void Game()
+    {
+        currentMenu = GameMenu.Game;
+        IsPaused = false;
+        coinPanel.gameObject.SetActive(false);
+        rulesPanel.gameObject.SetActive(false);
+    }
+
+    private void WhatMenu()
+    {
+        if (currentMenu == GameMenu.CoinMenu)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                RulesMenu();
+            }
+        }
+        else if (currentMenu == GameMenu.RulesMenu)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Game();
+            }
+        }
     }
 }
