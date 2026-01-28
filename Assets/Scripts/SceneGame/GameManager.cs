@@ -37,6 +37,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject shield1,shield2,shield3,shield4;
     private GameMenu currentMenu;
+
+    [SerializeField] GameObject carreInvisible;
+
     private void Awake()
     {
         if (Instance == null)
@@ -204,7 +207,16 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                RulesMenu();
+                
+                
+                    carreInvisible.transform.Translate(0.001f * Time.deltaTime, 0, 0);
+                
+                
+                if (carreInvisible.transform.position.x >= 0)
+                {
+                    RulesMenu();
+                }
+                
             }
         }
         else if (currentMenu == GameMenu.RulesMenu)
