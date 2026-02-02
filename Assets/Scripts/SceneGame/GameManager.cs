@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     private GameMenu currentMenu;
 
     [SerializeField] GameObject carreInvisible;
+    private Vector3 startPositionCarreInvisible;
+    private bool skip;
 
     private void Awake()
     {
@@ -52,10 +54,12 @@ public class GameManager : MonoBehaviour
         }
         controls = new InputSystem_Actions();
         controls.UI.Pause.performed += ctx => Pause();
+        startPositionCarreInvisible = carreInvisible.transform.position;
     }
 
     private void Start()
     {
+        skip = false;
         GetHightScore();
         ResetUIScreen();
         CoinMenu();
@@ -185,7 +189,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void RulesMenu()
+    private void RuleMenu()
     {
         currentMenu = GameMenu.RulesMenu;
         IsPaused = true;
@@ -203,19 +207,19 @@ public class GameManager : MonoBehaviour
 
     private void WhatMenu()
     {
+        if (skip)
+        {
+            carreInvisible.transform.Translate(1, 0, 0);
+        }
         if (currentMenu == GameMenu.CoinMenu)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+
+
+
+                StartCoroutine(Skip());
                 
-                
-                    carreInvisible.transform.Translate(0.001f * Time.deltaTime, 0, 0);
-                
-                
-                if (carreInvisible.transform.position.x >= 0)
-                {
-                    RulesMenu();
-                }
                 
             }
         }
@@ -223,8 +227,24 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Game();
+                StartCoroutine(Skip());
             }
+        }
+    }
+
+    private IEnumerator Skip()
+    {
+        skip = true;
+        yield return new WaitUntil(() => carreInvisible.transform.position.x >= 0);
+        skip = false;
+        carreInvisible.transform.position = startPositionCarreInvisible;
+        if (currentMenu == GameMenu.CoinMenu)
+        {
+            RuleMenu();
+        }
+        else if (currentMenu == GameMenu.RulesMenu)
+        {
+            Game();
         }
     }
 }
