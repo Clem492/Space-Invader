@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
     private Vector3 startPositionCarreInvisible;
     private bool skip;
 
+    private Level currentLevel;
+
     private void Awake()
     {
         if (Instance == null)
@@ -55,6 +57,7 @@ public class GameManager : MonoBehaviour
         controls = new InputSystem_Actions();
         controls.UI.Pause.performed += ctx => Pause();
         startPositionCarreInvisible = carreInvisible.transform.position;
+        currentLevel = Level.level1;
     }
 
     private void Start()
@@ -63,7 +66,7 @@ public class GameManager : MonoBehaviour
         GetHightScore();
         ResetUIScreen();
         CoinMenu();
-
+        Debug.Log(currentLevel);
     }
 
     private void Update()
@@ -85,6 +88,8 @@ public class GameManager : MonoBehaviour
     }
 
     private enum GameMenu { CoinMenu, RulesMenu, Game}
+
+    private enum Level { level1, level2, level3, level4 }
     
     public void AddScore(int points)
     {
@@ -142,7 +147,10 @@ public class GameManager : MonoBehaviour
         
         gameOverText.GetComponent<TextManager>().enabled = true;
         SaveScore();
-        yield return new WaitForSeconds(5);
+        for (int i = 0; i < 100; i++)
+        {
+            yield return new WaitForEndOfFrame();
+        }
         SceneManager.LoadScene("game");
     }
 
@@ -246,5 +254,61 @@ public class GameManager : MonoBehaviour
         {
             Game();
         }
+    }
+
+    
+
+    public float WhatLevel(float _stepdistance)
+    {
+        if (currentLevel == Level.level1)
+        {
+            //mouvement des enemeie basique
+            _stepdistance = 0.5f;
+            
+        }
+        if (currentLevel == Level.level2)
+        {
+            //mouvement un peux plus grand que le précédent
+            _stepdistance = 1f;
+            
+        }
+        if (currentLevel == Level.level3)
+        {
+            //mouvement un peux plus grand que le précédent
+            _stepdistance = 1.5f;
+           
+        }
+        if (currentLevel == Level.level4)
+        {
+            //mouvement un peux plus grand que le précédent
+            _stepdistance = 2f;
+           
+        }
+        return _stepdistance;
+    }
+
+    private void NextLevel()
+    {
+        if (currentLevel == Level.level1)
+        {
+            //mouvement des enemeie basique
+            currentLevel = Level.level2;
+        }
+        if (currentLevel == Level.level2)
+        {
+            //mouvement un peux plus grand que le précédent
+            currentLevel = Level.level3;
+        }
+        if (currentLevel == Level.level3)
+        {
+            //mouvement un peux plus grand que le précédent
+            currentLevel = Level.level4;
+        }
+        if (currentLevel == Level.level4)
+        {
+            //mouvement un peux plus grand que le précédent
+            currentLevel = Level.level1;
+        }
+        Debug.Log(currentLevel);
     }
 }

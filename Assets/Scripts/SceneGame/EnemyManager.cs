@@ -143,7 +143,7 @@ public class EnemyManager : MonoBehaviour
                 {
                     Vector3 direction = Vector3.down;
 
-                    MoveEnemy(enemies[row, col], direction, _stepDistance);
+                    MoveEnemy(enemies[row, col], direction, GameManager.Instance.WhatLevel(_stepDistance));
 
                     yield return null;
                 }
