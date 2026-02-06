@@ -143,7 +143,7 @@ public class EnemyManager : MonoBehaviour
                 {
                     Vector3 direction = Vector3.down;
 
-                    MoveEnemy(enemies[row, col], direction, GameManager.Instance.WhatLevel(_stepDistance));
+                    MoveEnemy(enemies[row, col], direction, _stepDistance);
 
                     yield return null;
                 }
@@ -166,6 +166,10 @@ public class EnemyManager : MonoBehaviour
                 GameObject shooter = shooters[Random.Range(0, shooters.Count)];
 
                 FireMissile(shooter);
+            }
+            if (shooters.Count == 0)
+            {
+                
             }
         }
     }
@@ -255,7 +259,11 @@ public class EnemyManager : MonoBehaviour
         remainingEnemies--;
         if (remainingEnemies <= 0)
         {
-            GameManager.Instance.CompletedLevel();
+            
+            GameManager.Instance.NextLevel();
+            GameManager.Instance.WhatLevel(ref _stepDistance);
+            SpawnEnemies();
+
         }
         if (!GameManager.Instance.isExploding)
             StartCoroutine(ExplosionCoroutine());

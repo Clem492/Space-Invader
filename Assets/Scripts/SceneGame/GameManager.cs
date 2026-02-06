@@ -154,11 +154,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("game");
     }
 
-    public void CompletedLevel()
-    {
-        //TODO : Implémenter le completed levels
-        
-    }
+
 
     public void SaveScore()
     {
@@ -217,7 +213,7 @@ public class GameManager : MonoBehaviour
     {
         if (skip)
         {
-            carreInvisible.transform.Translate(1, 0, 0);
+            carreInvisible.transform.Translate(2, 0, 0);
         }
         if (currentMenu == GameMenu.CoinMenu)
         {
@@ -258,53 +254,53 @@ public class GameManager : MonoBehaviour
 
     
 
-    public float WhatLevel(float _stepdistance)
+    public void WhatLevel(ref float _stepdistance/*, ref float missilInterval*/)
     {
         if (currentLevel == Level.level1)
         {
             //mouvement des enemeie basique
             _stepdistance = 0.5f;
-            
+            //TODO : changer aussi la valeur de l'intervale missile 
         }
-        if (currentLevel == Level.level2)
+        else if (currentLevel == Level.level2)
         {
             //mouvement un peux plus grand que le précédent
             _stepdistance = 1f;
             
         }
-        if (currentLevel == Level.level3)
+        else if (currentLevel == Level.level3)
         {
             //mouvement un peux plus grand que le précédent
             _stepdistance = 1.5f;
            
         }
-        if (currentLevel == Level.level4)
+        else if (currentLevel == Level.level4)
         {
             //mouvement un peux plus grand que le précédent
             _stepdistance = 2f;
            
         }
-        return _stepdistance;
+        
     }
 
-    private void NextLevel()
+    public void NextLevel()
     {
         if (currentLevel == Level.level1)
         {
             //mouvement des enemeie basique
             currentLevel = Level.level2;
         }
-        if (currentLevel == Level.level2)
+        else if  (currentLevel == Level.level2)
         {
             //mouvement un peux plus grand que le précédent
             currentLevel = Level.level3;
         }
-        if (currentLevel == Level.level3)
+        else if (currentLevel == Level.level3)
         {
             //mouvement un peux plus grand que le précédent
             currentLevel = Level.level4;
         }
-        if (currentLevel == Level.level4)
+        else if (currentLevel == Level.level4)
         {
             //mouvement un peux plus grand que le précédent
             currentLevel = Level.level1;
