@@ -4705,12 +4705,12 @@ MonoBehaviour:
   spacing: 1.5
   _stepDistance: 0.5
   stepDistanceVertical: 1
-  startPosition: {x: -6.5, y: 7.5}
+  startPosition: {x: -7.5, y: 6}
   missileAPrefab: {fileID: 2400328452157108031, guid: 2bb14594b727f704a83344e8523e2a33, type: 3}
   LaserPrefab: {fileID: 5967669586785746476, guid: 60a1bd2118e1904468ce11320f11ccee, type: 3}
   MissileCPrefab: {fileID: 3941086699199084542, guid: f72a2834d669d694f8b203705f3e0431, type: 3}
   missilePoint: {fileID: 0}
-  missileInterval: 0.1
+  missileInterval: 10
   explosionDuration: 17
   explosionPrefab: {fileID: 8071882685111860440, guid: f3e773415dc77134bb7c5c679113a83f, type: 3}
 --- !u!114 &2001377357
@@ -4975,7 +4975,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missilePrefab: {fileID: 1041019289899147033, guid: 31bd2df92ee44544eb5ac3fe90c78bb1, type: 3}
   firePoint: {fileID: 737304366}
-  poolSize: 1
+  poolSize: 10000
 --- !u!1001 &845822195328900813
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5096,6 +5096,10 @@ PrefabInstance:
       propertyPath: explosionBSprite
       value: 
       objectReference: {fileID: 21300000, guid: 8446d5bdff4b93345a869be0a6baadde, type: 3}
+    - target: {fileID: 2267484363628352002, guid: a3d9e64b71725ff459e301a2707aa85c, type: 3}
+      propertyPath: boundaryPercentage
+      value: 0.45
+      objectReference: {fileID: 0}
     - target: {fileID: 3809513591487920422, guid: a3d9e64b71725ff459e301a2707aa85c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
