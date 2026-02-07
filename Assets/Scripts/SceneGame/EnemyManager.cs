@@ -383,5 +383,5 @@ public class EnemyManager : MonoBehaviour
     //TODO : detruire les missile du joueur et des enemies si collision
     //TODO : exploser le missile du joueur au limite meme chose pour les enemie 
     //TODO : animation d'explosion quand les enemie touche un shield 
-
+    //TODO : implémenter le son 
 }
