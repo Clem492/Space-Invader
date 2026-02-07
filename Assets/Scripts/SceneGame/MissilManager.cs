@@ -58,6 +58,10 @@ public class MissilManager : MonoBehaviour
                     missilePool[index].SetActive(true);
                     currentMissileIndex = (index + 1) % poolSize;
                     uFOManager.compteurTirUfo++;
+                    if (GameManager.Instance.ufoActive)
+                    {
+                        uFOManager.compteurUfoScore++;
+                    }
                     return; //sortir après avoir trouvé un missile 
                 }
             }

@@ -6,8 +6,8 @@ public class UFOScript : MonoBehaviour
     private Vector3 spawningPoint1;
     private Vector3 spawningPoint2;
 
-    private bool right;
-    private bool left;
+    public bool right;
+    public bool left;
 
     private int UFOSpeed = 3;
 
@@ -19,7 +19,7 @@ public class UFOScript : MonoBehaviour
 
     private void Update()
     {
-        /*MoveUFO();*/
+        MoveUFO();
     }
 
     //faire le mouvement 
@@ -43,6 +43,7 @@ public class UFOScript : MonoBehaviour
             transform.Translate(-UFOSpeed * Time.deltaTime, 0, 0);
             if (transform.position.x <= spawningPoint2.x)
             {
+                GameManager.Instance.ufoActive = false;
                 Destroy(gameObject);
             }
         }
@@ -51,6 +52,7 @@ public class UFOScript : MonoBehaviour
             transform.transform.Translate(UFOSpeed * Time.deltaTime, 0, 0);
             if (transform.position.x >= spawningPoint1.x)
             {
+                GameManager.Instance.ufoActive = false;
                 Destroy(gameObject);
             }
         }

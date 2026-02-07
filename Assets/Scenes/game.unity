@@ -2354,6 +2354,7 @@ MonoBehaviour:
   currentLevel: 0
   newStepDistance: 0.05
   newMissileIntervale: 0.2
+  ufoActive: 0
 --- !u!4 &824491127
 Transform:
   m_ObjectHideFlags: 0
@@ -4827,6 +4828,7 @@ MonoBehaviour:
   ufoSpawningPoint1: {fileID: 421825362}
   ufoSpawningPoint2: {fileID: 542414924}
   compteurTirUfo: 0
+  compteurUfoScore: 0
 --- !u!1 &2024892663
 GameObject:
   m_ObjectHideFlags: 0

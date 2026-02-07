@@ -10,9 +10,11 @@ public class UFOManager : MonoBehaviour
     public GameObject ufoSpawningPoint1;
     public GameObject ufoSpawningPoint2;
 
-    private int ufoTirSpawning = 0;
-    public int compteurTirUfo = 0;
 
+    public int compteurTirUfo = 0;
+    public int compteurUfoScore = 0;
+
+    
     private Queue<int> shootRequiredToSpawn = new Queue<int>();
 
     private void Start()
@@ -23,6 +25,10 @@ public class UFOManager : MonoBehaviour
     private void Update()
     {
         SpawnUfo();
+        if (!GameManager.Instance.ufoActive)
+        {
+            compteurUfoScore = 0;
+        }
     }
 
     //fonction qui me donne chaque possibilité de spawn pour l'ufo 
@@ -95,10 +101,12 @@ public class UFOManager : MonoBehaviour
                 if (random == 0)
                 {
                     Instantiate(ufoPrefab, ufoSpawningPoint1.transform.position, Quaternion.identity);
+                    GameManager.Instance.ufoActive = true;
                 }
                 else if (random == 1)
                 {
                     Instantiate(ufoPrefab, ufoSpawningPoint2.transform.position, Quaternion.identity);
+                    GameManager.Instance.ufoActive = true;
                 }
 
             }

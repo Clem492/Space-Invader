@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     public float newStepDistance;
     public float newMissileIntervale;
 
+    public bool ufoActive = false;
 
     private void Awake()
     {

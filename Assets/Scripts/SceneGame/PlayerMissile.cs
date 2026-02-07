@@ -1,3 +1,5 @@
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMissile : MonoBehaviour
@@ -38,12 +40,23 @@ public class PlayerMissile : MonoBehaviour
 
                 ResetMissle();
                 GameManager.Instance.SaveScore();
-                
+
             }
 
         }
-        
-    }
-    
+        if (collision.CompareTag("ufo"))
+        {
+            //stoper l'ufo
+            UFOScript ufoScript = collision.GetComponent<UFOScript>();
+            TextMeshProUGUI ufoText = collision.GetComponentInChildren<TextMeshProUGUI>();
+            ufoScript.right = true;
+            ufoScript.left = true;
+            //désactiver le renderer de l'ufo 
+            collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            ufoText.text = 300.ToString();
+            //afficher et ajouter le score de l'ufo
+            //détruire l'ufo 
+        }
+    } 
 
 }
