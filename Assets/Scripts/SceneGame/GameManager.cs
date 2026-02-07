@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -36,13 +34,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] RectTransform rulesPanel;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject shield1,shield2,shield3,shield4;
-    private GameMenu currentMenu;
+    public GameMenu currentMenu;
 
     [SerializeField] GameObject carreInvisible;
     private Vector3 startPositionCarreInvisible;
-    private bool skip;
+    public bool skip;
 
-    private Level currentLevel;
+    public Level currentLevel;
+
+    public float newStepDistance;
+    public float newMissileIntervale;
+
 
     private void Awake()
     {
@@ -71,6 +73,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        Skip();
         WhatMenu();
     }
 
@@ -87,9 +90,9 @@ public class GameManager : MonoBehaviour
         IsPaused = !IsPaused;
     }
 
-    private enum GameMenu { CoinMenu, RulesMenu, Game}
+    public enum GameMenu { CoinMenu, RulesMenu, Game}
 
-    private enum Level { level1, level2, level3, level4 }
+    public enum Level { level1, level2, level3, level4 }
     
     public void AddScore(int points)
     {
@@ -211,10 +214,7 @@ public class GameManager : MonoBehaviour
 
     private void WhatMenu()
     {
-        if (skip)
-        {
-            carreInvisible.transform.Translate(2, 0, 0);
-        }
+        
         if (currentMenu == GameMenu.CoinMenu)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -222,7 +222,7 @@ public class GameManager : MonoBehaviour
 
 
 
-                StartCoroutine(Skip());
+                StartCoroutine(SkipTransition());
                 
                 
             }
@@ -231,12 +231,21 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                StartCoroutine(Skip());
+                StartCoroutine(SkipTransition());
             }
         }
     }
 
-    private IEnumerator Skip()
+
+    private void Skip()
+    {
+        if (skip)
+        {
+            carreInvisible.transform.Translate(2, 0, 0);
+        }
+    }
+
+    public IEnumerator SkipTransition()
     {
         skip = true;
         yield return new WaitUntil(() => carreInvisible.transform.position.x >= 0);
@@ -250,35 +259,36 @@ public class GameManager : MonoBehaviour
         {
             Game();
         }
+
     }
 
     
 
-    public void WhatLevel(ref float _stepdistance/*, ref float missilInterval*/)
+    public void WhatLevel(ref float _stepdistance, ref float missilInterval)
     {
         if (currentLevel == Level.level1)
         {
             //mouvement des enemeie basique
-            _stepdistance = 0.5f;
-            //TODO : changer aussi la valeur de l'intervale missile 
+            _stepdistance += newStepDistance;
+            missilInterval -= newMissileIntervale;
         }
         else if (currentLevel == Level.level2)
         {
             //mouvement un peux plus grand que le précédent
-            _stepdistance = 1f;
-            
+            _stepdistance += newStepDistance;
+            missilInterval -= newMissileIntervale;
         }
         else if (currentLevel == Level.level3)
         {
             //mouvement un peux plus grand que le précédent
-            _stepdistance = 1.5f;
-           
+            _stepdistance += newStepDistance;
+            missilInterval -= newMissileIntervale;
         }
         else if (currentLevel == Level.level4)
         {
             //mouvement un peux plus grand que le précédent
-            _stepdistance = 2f;
-           
+            _stepdistance += newStepDistance;
+            missilInterval -= newMissileIntervale;
         }
         
     }
@@ -307,4 +317,6 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log(currentLevel);
     }
+
+    
 }

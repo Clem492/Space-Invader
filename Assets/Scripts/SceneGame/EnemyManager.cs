@@ -7,6 +7,7 @@ public class EnemyManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject player;
+    private Vector3 playerPos;
     private float playerBoundaryX;
 
     public EnemyPool enemyPool;
@@ -35,18 +36,35 @@ public class EnemyManager : MonoBehaviour
     public GameObject explosionPrefab;
     private GameObject explosionDurationFrame;
 
+    
 
     private int remainingEnemies;
 
+    //carre pour la transition
+    public GameObject carreInvisible;
+    private Vector3 carreStartPos;
+    private bool transitingMovement;
+    private bool transitingLevel;
+    private bool spawning;
+    
+    public UFOManager UFOManager;
+
     void Start()
     {
+        transitingLevel = false;
         playerBoundaryX = player.GetComponent<PlayerScript>().boundary;
+        playerPos = player.transform.position;
         enemies = new GameObject[rows, cols];
-
-        SpawnEnemies();
+        carreStartPos = carreInvisible.transform.position;
+        StartCoroutine(SpawnEnemies());
 
         StartCoroutine(HandleEnemyMovement());
         StartCoroutine(EnemyShooting());
+    }
+
+    private void Update()
+    {
+        MoveCarre();
     }
 
     private enum Missile
@@ -57,8 +75,9 @@ public class EnemyManager : MonoBehaviour
     }
 
     private Missile missile = Missile.MissileAPrefab;
-    private void SpawnEnemies()
+    private IEnumerator SpawnEnemies()
     {
+        spawning = true;
         var enemyTypes = enemyPool.GetEnemyTypes();
 
         for (int row = 0; row < rows; row++)
@@ -85,16 +104,20 @@ public class EnemyManager : MonoBehaviour
 
                     enemies[row, col] = enemy;
                     remainingEnemies++;
+
+                    yield return new WaitForEndOfFrame();
+
                 }
             }
         }
+        spawning = false;
     }
 
     IEnumerator HandleEnemyMovement()
     {
         while (remainingEnemies >0)
         {
-            
+           
 
             bool boundaryReached = false;
 
@@ -259,10 +282,8 @@ public class EnemyManager : MonoBehaviour
         remainingEnemies--;
         if (remainingEnemies <= 0)
         {
-            
-            GameManager.Instance.NextLevel();
-            GameManager.Instance.WhatLevel(ref _stepDistance);
-            SpawnEnemies();
+
+            StartCoroutine(TransitingLevel());
 
         }
         if (!GameManager.Instance.isExploding)
@@ -315,4 +336,52 @@ public class EnemyManager : MonoBehaviour
             return enemyTypes[0];
         }
     }
+
+    public IEnumerator TransitingLevel()
+    {
+        transitingLevel = true;
+        //attendre 32frame
+        for (int i = 0; i < 32; i++)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        //bouger le carée 
+        transitingMovement = true;
+        yield return new WaitUntil(() => carreInvisible.transform.position.x >= 0);
+        player.SetActive(false);
+        // TODO : reset les boucliers
+
+        yield return new WaitUntil(() => carreInvisible.gameObject.transform.position.x >= 45);
+        transitingMovement = false;
+        carreInvisible.transform.position = carreStartPos;
+        yield return new WaitForEndOfFrame();
+
+        //change de niveau
+        GameManager.Instance.NextLevel();
+        GameManager.Instance.WhatLevel(ref _stepDistance, ref missileInterval);
+        UFOManager.UfoSpawningCondition();
+        StartCoroutine(SpawnEnemies());
+        //mettre le joueur a la bonne position
+        player.transform.position = playerPos;
+        transitingLevel = false;
+
+        yield return new WaitUntil(() => !spawning);
+        //faire bouger les enemie et le joueur
+        StartCoroutine(HandleEnemyMovement());
+        player.SetActive(true);
+    }
+
+    private void MoveCarre()
+    {
+        if (GameManager.Instance.currentMenu == GameManager.GameMenu.Game && transitingMovement)
+        {
+            carreInvisible.transform.Translate(2, 0, 0);
+        }
+        
+    }
+
+    //TODO : detruire les missile du joueur et des enemies si collision
+    //TODO : exploser le missile du joueur au limite meme chose pour les enemie 
+    //TODO : animation d'explosion quand les enemie touche un shield 
+
 }

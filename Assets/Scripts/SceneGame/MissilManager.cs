@@ -14,7 +14,7 @@ public class MissilManager : MonoBehaviour
     private int currentMissileIndex = 0; //permet de commencer la recherce à cette index 
 
     private InputSystem_Actions controls;
-
+    public UFOManager uFOManager;
 
     private void Awake()
     {
@@ -56,8 +56,8 @@ public class MissilManager : MonoBehaviour
                     missilePool[index].transform.position = firePoint.position;
                     missilePool[index].transform.rotation = firePoint.rotation;
                     missilePool[index].SetActive(true);
-
                     currentMissileIndex = (index + 1) % poolSize;
+                    uFOManager.compteurTirUfo++;
                     return; //sortir après avoir trouvé un missile 
                 }
             }

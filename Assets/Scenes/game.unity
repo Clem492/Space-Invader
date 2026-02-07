@@ -1056,6 +1056,37 @@ RectTransform:
   m_AnchoredPosition: {x: -80, y: -102}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &421825362
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 421825363}
+  m_Layer: 0
+  m_Name: ufoSpawnPoint1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &421825363
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421825362}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.61, y: 6.57, z: 1.2590395}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &445832173
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1535,6 +1566,37 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 829266890437099173, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
   m_PrefabInstance: {fileID: 445832173}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &542414924
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 542414925}
+  m_Layer: 0
+  m_Name: ufoSpawnPoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &542414925
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542414924}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.1, y: 6.57, z: 1.2590395}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &557828821
 GameObject:
   m_ObjectHideFlags: 0
@@ -2286,7 +2348,12 @@ MonoBehaviour:
   shield2: {fileID: 1661630937}
   shield3: {fileID: 541408067}
   shield4: {fileID: 738508957}
+  currentMenu: 0
   carreInvisible: {fileID: 1953977496}
+  skip: 0
+  currentLevel: 0
+  newStepDistance: 0.05
+  newMissileIntervale: 0.2
 --- !u!4 &824491127
 Transform:
   m_ObjectHideFlags: 0
@@ -4679,6 +4746,7 @@ GameObject:
   - component: {fileID: 2001377358}
   - component: {fileID: 2001377357}
   - component: {fileID: 2001377356}
+  - component: {fileID: 2001377359}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -4710,9 +4778,11 @@ MonoBehaviour:
   LaserPrefab: {fileID: 5967669586785746476, guid: 60a1bd2118e1904468ce11320f11ccee, type: 3}
   MissileCPrefab: {fileID: 3941086699199084542, guid: f72a2834d669d694f8b203705f3e0431, type: 3}
   missilePoint: {fileID: 0}
-  missileInterval: 10
+  missileInterval: 2
   explosionDuration: 17
   explosionPrefab: {fileID: 8071882685111860440, guid: f3e773415dc77134bb7c5c679113a83f, type: 3}
+  carreInvisible: {fileID: 1953977496}
+  UFOManager: {fileID: 2001377359}
 --- !u!114 &2001377357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4741,6 +4811,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2001377359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001377355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc4e43474a50c0f4db3ad9f2b1c5e560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ufoPrefab: {fileID: 7779303476696317611, guid: fba9fb4bf6bf5614983d7d065b7a8bcc, type: 3}
+  ufoSpawningPoint1: {fileID: 421825362}
+  ufoSpawningPoint2: {fileID: 542414924}
+  compteurTirUfo: 0
 --- !u!1 &2024892663
 GameObject:
   m_ObjectHideFlags: 0
@@ -4975,7 +5061,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missilePrefab: {fileID: 1041019289899147033, guid: 31bd2df92ee44544eb5ac3fe90c78bb1, type: 3}
   firePoint: {fileID: 737304366}
-  poolSize: 10000
+  poolSize: 10
+  uFOManager: {fileID: 2001377359}
 --- !u!1001 &845822195328900813
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5182,3 +5269,5 @@ SceneRoots:
   - {fileID: 2035717601}
   - {fileID: 192643824}
   - {fileID: 1953977498}
+  - {fileID: 421825363}
+  - {fileID: 542414925}
