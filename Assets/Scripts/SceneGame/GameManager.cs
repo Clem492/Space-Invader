@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     public float newMissileIntervale;
 
     public bool ufoActive = false;
+    public int compteurUfoScore = 0;
 
     private void Awake()
     {
@@ -76,6 +77,10 @@ public class GameManager : MonoBehaviour
     {
         Skip();
         WhatMenu();
+        if (!ufoActive)
+        {
+            compteurUfoScore = 0;
+        }
     }
 
     private void OnEnable()

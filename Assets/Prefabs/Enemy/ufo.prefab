@@ -340,8 +340,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39cc27ee2af7c2a45a37c6184b045403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UFOExplosion: {fileID: 21300000, guid: c631d698f4bc6b1459156693f9c95223, type: 3}
+  UFOSprite: {fileID: 21300000, guid: ed502c41d38d6a54596347719a2ddf97, type: 3}
   right: 0
   left: 0
+  exploding: 0
 --- !u!61 &69004866951469534
 BoxCollider2D:
   m_ObjectHideFlags: 0

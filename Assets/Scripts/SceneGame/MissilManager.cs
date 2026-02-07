@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 
 public class MissilManager : MonoBehaviour
 {
@@ -57,10 +58,17 @@ public class MissilManager : MonoBehaviour
                     missilePool[index].transform.rotation = firePoint.rotation;
                     missilePool[index].SetActive(true);
                     currentMissileIndex = (index + 1) % poolSize;
-                    uFOManager.compteurTirUfo++;
+                    if (!GameManager.Instance.ufoActive)
+                    {
+                        uFOManager.compteurTirUfo++;
+                    }
+                        
+                    uFOManager.SpawnUfo();
+
+                    
                     if (GameManager.Instance.ufoActive)
                     {
-                        uFOManager.compteurUfoScore++;
+                        GameManager.Instance.compteurUfoScore++;
                     }
                     return; //sortir après avoir trouvé un missile 
                 }

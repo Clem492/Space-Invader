@@ -2355,6 +2355,7 @@ MonoBehaviour:
   newStepDistance: 0.05
   newMissileIntervale: 0.2
   ufoActive: 0
+  compteurUfoScore: 0
 --- !u!4 &824491127
 Transform:
   m_ObjectHideFlags: 0
@@ -4827,8 +4828,8 @@ MonoBehaviour:
   ufoPrefab: {fileID: 7779303476696317611, guid: fba9fb4bf6bf5614983d7d065b7a8bcc, type: 3}
   ufoSpawningPoint1: {fileID: 421825362}
   ufoSpawningPoint2: {fileID: 542414924}
+  poolSize: 1
   compteurTirUfo: 0
-  compteurUfoScore: 0
 --- !u!1 &2024892663
 GameObject:
   m_ObjectHideFlags: 0
@@ -5063,7 +5064,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missilePrefab: {fileID: 1041019289899147033, guid: 31bd2df92ee44544eb5ac3fe90c78bb1, type: 3}
   firePoint: {fileID: 737304366}
-  poolSize: 10
+  poolSize: 1
   uFOManager: {fileID: 2001377359}
 --- !u!1001 &845822195328900813
 PrefabInstance:

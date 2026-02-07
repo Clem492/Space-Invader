@@ -7,28 +7,34 @@ public class UFOManager : MonoBehaviour
     //Compter le nombre de tire en fonction du niveau faire apparaitre l'ufo
     //donner le bon nombre de points 
     public GameObject ufoPrefab;
+    private GameObject[] ufoPool;
     public GameObject ufoSpawningPoint1;
     public GameObject ufoSpawningPoint2;
 
-
+    public int poolSize = 1;
     public int compteurTirUfo = 0;
-    public int compteurUfoScore = 0;
+    private int currentUFOIndex = 0;
 
-    
-    private Queue<int> shootRequiredToSpawn = new Queue<int>();
+
+    public Queue<int> shootRequiredToSpawn = new Queue<int>();
 
     private void Start()
     {
         UfoSpawningCondition();
+        ufoPool = new GameObject[poolSize];
+        for (int i = 0; i < poolSize; i++)
+        {
+            ufoPool[i] = Instantiate(ufoPrefab);
+            ufoPool[i].SetActive(false);
+            
+        }
+
     }
 
     private void Update()
     {
-        SpawnUfo();
-        if (!GameManager.Instance.ufoActive)
-        {
-            compteurUfoScore = 0;
-        }
+        
+
     }
 
     //fonction qui me donne chaque possibilité de spawn pour l'ufo 
@@ -89,34 +95,53 @@ public class UFOManager : MonoBehaviour
         
     }
 
-    private void SpawnUfo()
+    public void SpawnUfo()
     {
-        try
+        
+
+        for (int i = 0; i < poolSize; i++)
         {
-            if (compteurTirUfo == shootRequiredToSpawn.Peek())
+            int index = (currentUFOIndex + i) % poolSize;
+
+            if (!ufoPool[index].activeSelf)
             {
-                shootRequiredToSpawn.Dequeue();
-                compteurTirUfo = 0;
-                int random = Random.Range(0, 2);
-                if (random == 0)
+
+                try
                 {
-                    Instantiate(ufoPrefab, ufoSpawningPoint1.transform.position, Quaternion.identity);
-                    GameManager.Instance.ufoActive = true;
+                    if (compteurTirUfo == shootRequiredToSpawn.Peek())
+                    {
+                        shootRequiredToSpawn.Dequeue();
+                        compteurTirUfo = 0;
+                        int random = Random.Range(0, 2);
+                        if (random == 0)
+                        {
+                            GameManager.Instance.ufoActive = true;
+                            ufoPool[index].transform.position = ufoSpawningPoint1.transform.position;
+                            ufoPool[index].transform.rotation = Quaternion.identity;
+                            ufoPool[index].SetActive(true);
+                        }
+                        else if (random == 1)
+                        {
+                            GameManager.Instance.ufoActive = true;
+                            ufoPool[index].transform.position = ufoSpawningPoint2.transform.position;
+                            ufoPool[index].transform.rotation = Quaternion.identity;
+                            ufoPool[index].SetActive(true);
+                        }
+                    }
                 }
-                else if (random == 1)
+                catch
                 {
-                    Instantiate(ufoPrefab, ufoSpawningPoint2.transform.position, Quaternion.identity);
-                    GameManager.Instance.ufoActive = true;
+                    Debug.Log("shootRequiredToSpawn est vide");
+                    compteurTirUfo = 0;
                 }
 
+
+                currentUFOIndex = (index + 1) % poolSize;
+
+
+                return; //sortir après avoir trouvé un missile 
             }
         }
-        catch
-        {
-            Debug.Log("shootRequiredToSpawn est vide");
-            compteurTirUfo = 0;
-        }
-        
-       
+
     }
 }
