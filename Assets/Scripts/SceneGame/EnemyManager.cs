@@ -485,5 +485,5 @@ public class EnemyManager : MonoBehaviour
         }
     }
     
-    //TODO : implémenter le son 
+    //TODO : Skip automatique 
 }
