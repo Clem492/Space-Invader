@@ -49,6 +49,8 @@ public class EnemyManager : MonoBehaviour
     
     public UFOManager UFOManager;
 
+    private bool needSwtichLevel = false;
+    private bool firstStart = true;
     void Start()
     {
         transitingLevel = false;
@@ -56,15 +58,22 @@ public class EnemyManager : MonoBehaviour
         playerPos = player.transform.position;
         enemies = new GameObject[rows, cols];
         carreStartPos = carreInvisible.transform.position;
-        StartCoroutine(SpawnEnemies());
-
-        StartCoroutine(HandleEnemyMovement());
-        StartCoroutine(EnemyShooting());
+       
     }
 
     private void Update()
     {
         MoveCarre();
+        if (needSwtichLevel && !GameManager.Instance.ufoActive)
+        {
+            needSwtichLevel = false;
+            StartCoroutine(TransitingLevel());
+        }
+        if (firstStart && GameManager.Instance.currentMenu == GameManager.GameMenu.Game)
+        {
+            firstStart = false;
+            StartCoroutine(DoSpawn());
+        }
     }
 
     private enum Missile
@@ -75,9 +84,19 @@ public class EnemyManager : MonoBehaviour
     }
 
     private Missile missile = Missile.MissileAPrefab;
+
+    private IEnumerator DoSpawn()
+    {
+        StartCoroutine(SpawnEnemies());
+        yield return new WaitUntil(() => !spawning);
+        StartCoroutine(HandleEnemyMovement());
+        StartCoroutine(EnemyShooting());
+    }
+
     private IEnumerator SpawnEnemies()
     {
         spawning = true;
+        GameManager.Instance.IsPaused = true;
         var enemyTypes = enemyPool.GetEnemyTypes();
 
         for (int row = 0; row < rows; row++)
@@ -111,6 +130,7 @@ public class EnemyManager : MonoBehaviour
             }
         }
         spawning = false;
+        GameManager.Instance.IsPaused = false;
     }
 
     IEnumerator HandleEnemyMovement()
@@ -282,8 +302,8 @@ public class EnemyManager : MonoBehaviour
         remainingEnemies--;
         if (remainingEnemies <= 0)
         {
-
-            StartCoroutine(TransitingLevel());
+            needSwtichLevel = true;
+            
 
         }
         if (!GameManager.Instance.isExploding)
@@ -379,6 +399,8 @@ public class EnemyManager : MonoBehaviour
         }
         
     }
+
+
 
     //TODO : detruire les missile du joueur et des enemies si collision
     //TODO : exploser le missile du joueur au limite meme chose pour les enemie 

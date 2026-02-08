@@ -62,14 +62,12 @@ public class MissilManager : MonoBehaviour
                     {
                         uFOManager.compteurTirUfo++;
                     }
-                        
-                    uFOManager.SpawnUfo();
 
-                    
                     if (GameManager.Instance.ufoActive)
                     {
                         GameManager.Instance.compteurUfoScore++;
                     }
+                    uFOManager.SpawnUfo();
                     return; //sortir après avoir trouvé un missile 
                 }
             }

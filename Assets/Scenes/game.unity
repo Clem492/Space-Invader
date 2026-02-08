@@ -5064,7 +5064,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missilePrefab: {fileID: 1041019289899147033, guid: 31bd2df92ee44544eb5ac3fe90c78bb1, type: 3}
   firePoint: {fileID: 737304366}
-  poolSize: 1
+  poolSize: 10
   uFOManager: {fileID: 2001377359}
 --- !u!1001 &845822195328900813
 PrefabInstance:
