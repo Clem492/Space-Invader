@@ -193,6 +193,7 @@ public class GameManager : MonoBehaviour
     private void CoinMenu()
     {
         currentMenu = GameMenu.CoinMenu;
+        AudioManager.instance.spaceInvaders1.Play();
         IsPaused = true;
         coinPanel.gameObject.SetActive(true);
         rulesPanel.gameObject.SetActive(false);
@@ -211,6 +212,7 @@ public class GameManager : MonoBehaviour
     private void Game()
     {
         currentMenu = GameMenu.Game;
+        AudioManager.instance.spaceInvaders1.Stop();
         IsPaused = false;
         coinPanel.gameObject.SetActive(false);
         rulesPanel.gameObject.SetActive(false);

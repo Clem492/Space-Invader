@@ -40,7 +40,7 @@ public class EnemyManager : MonoBehaviour
 
     
 
-    private int remainingEnemies;
+    public int remainingEnemies;
 
     //carre pour la transition
     public GameObject carreInvisible;
@@ -103,8 +103,10 @@ public class EnemyManager : MonoBehaviour
 
     private void Update()
     {
+        
         MoveCarre();
 
+        
 
         if (needSwtichLevel && !GameManager.Instance.ufoActive)
         {
@@ -179,8 +181,8 @@ public class EnemyManager : MonoBehaviour
     {
         while (remainingEnemies >0)
         {
-           
 
+            SoundToEnnemieRemaining();
             bool boundaryReached = false;
 
             for (int row = rows - 1; row >= 0; row--)
@@ -345,6 +347,7 @@ public class EnemyManager : MonoBehaviour
         GameManager.Instance.AddScore(enemy.GetComponent<EnemyScript>().ScoreData);
         enemyPool.ReturnToPool(enemy, prefab);
         explosionDurationFrame = Instantiate(explosionPrefab, enemy.transform.position, Quaternion.identity);
+        AudioManager.instance.invaderkilled.Play();
         remainingEnemies--;
         if (remainingEnemies <= 0)
         {
@@ -450,6 +453,37 @@ public class EnemyManager : MonoBehaviour
     }
 
  
+    private void SoundToEnnemieRemaining()
+    {
+        if (remainingEnemies <= 55 && remainingEnemies > 42 && !AudioManager.instance.fastInvaders1.isPlaying)
+        {
+            Debug.Log(1);
+            //jouer le premier son 
+            AudioManager.instance.fastInvaders4.Stop();
+            AudioManager.instance.fastInvaders1.Play();
+        }
+        else if (remainingEnemies <= 42 && remainingEnemies > 29 && !AudioManager.instance.fastInvaders2.isPlaying)
+        {
+            Debug.Log(2);
+            //jouer le deuxième son
+            AudioManager.instance.fastInvaders1.Stop();
+            AudioManager.instance.fastInvaders2.Play();
+        }
+        else if (remainingEnemies <= 29 && remainingEnemies > 16 && !AudioManager.instance.fastInvaders3.isPlaying)
+        {
+            Debug.Log(3);
+            //jouer le troisième son 
+            AudioManager.instance.fastInvaders2.Stop();
+            AudioManager.instance.fastInvaders3.Play();
+        }
+        else if (remainingEnemies <= 16 && remainingEnemies > 0 && !AudioManager.instance.fastInvaders4.isPlaying)
+        {
+            Debug.Log(4);
+            //jouer le quatrième son 
+            AudioManager.instance.fastInvaders3.Stop();
+            AudioManager.instance.fastInvaders4.Play();
+        }
+    }
     
     //TODO : implémenter le son 
 }

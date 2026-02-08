@@ -58,6 +58,7 @@ public class MissilManager : MonoBehaviour
                     missilePool[index].transform.rotation = firePoint.rotation;
                     missilePool[index].SetActive(true);
                     currentMissileIndex = (index + 1) % poolSize;
+                    AudioManager.instance.shoot.Play();
                     if (!GameManager.Instance.ufoActive)
                     {
                         uFOManager.compteurTirUfo++;

@@ -55,7 +55,8 @@ public class UFOScript : MonoBehaviour
                 GameManager.Instance.ufoActive = false;
                 right = false;
                 gameObject.SetActive(false);
-                
+                AudioManager.instance.ufoHightpich.Stop();
+
             }
         }
         if (left)
@@ -66,7 +67,8 @@ public class UFOScript : MonoBehaviour
                 GameManager.Instance.ufoActive = false;
                 left = false;
                 gameObject.SetActive(false);
-                
+                AudioManager.instance.ufoHightpich.Stop();
+
             }
         }
 
@@ -74,6 +76,8 @@ public class UFOScript : MonoBehaviour
 
     public IEnumerator DestroyUFO(int score)
     {
+        AudioManager.instance.ufoHightpich.Stop();
+        AudioManager.instance.ufoLowpitch.Play();
         exploding = true;
         GameManager.Instance.ufoActive = false;
         gameObject.GetComponent<SpriteRenderer>().sprite = UFOExplosion;
@@ -93,6 +97,7 @@ public class UFOScript : MonoBehaviour
         right = false;
         left = false;
         gameObject.SetActive(false);
+        AudioManager.instance.ufoLowpitch.Stop();
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
         gameObject.GetComponent<BoxCollider2D>().enabled = true;
         gameObject.GetComponent<SpriteRenderer>().sprite = UFOSprite;

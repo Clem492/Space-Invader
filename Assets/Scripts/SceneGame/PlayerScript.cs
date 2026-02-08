@@ -190,6 +190,7 @@ public class PlayerScript : MonoBehaviour
     {
         GameManager.Instance.IsPaused = true;
         bool terst = false;
+        AudioManager.instance.explosion.Play();
         for (int i = 0; i < playerExplosionDuration; i++)
         {
             terst = !terst;

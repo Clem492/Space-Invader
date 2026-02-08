@@ -119,6 +119,7 @@ public class UFOManager : MonoBehaviour
                             ufoPool[index].transform.position = ufoSpawningPoint1.transform.position;
                             ufoPool[index].transform.rotation = Quaternion.identity;
                             ufoPool[index].SetActive(true);
+                            AudioManager.instance.ufoHightpich.Play();
                         }
                         else if (random == 1)
                         {
@@ -126,6 +127,7 @@ public class UFOManager : MonoBehaviour
                             ufoPool[index].transform.position = ufoSpawningPoint2.transform.position;
                             ufoPool[index].transform.rotation = Quaternion.identity;
                             ufoPool[index].SetActive(true);
+                            AudioManager.instance.ufoHightpich.Play();
                         }
                     }
                 }
