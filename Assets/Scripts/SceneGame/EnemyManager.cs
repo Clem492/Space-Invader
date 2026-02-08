@@ -182,7 +182,7 @@ public class EnemyManager : MonoBehaviour
         while (remainingEnemies >0)
         {
 
-            SoundToEnnemieRemaining();
+            /*SoundToEnnemieRemaining();*/
             bool boundaryReached = false;
 
             for (int row = rows - 1; row >= 0; row--)

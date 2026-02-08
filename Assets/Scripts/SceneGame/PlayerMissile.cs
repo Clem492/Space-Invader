@@ -106,7 +106,6 @@ public class PlayerMissile : MonoBehaviour
                 if (random == 0)
                 {
                     Instantiate(explosionMissile, collision.transform.position, Quaternion.identity);
-                    AudioManager.instance.explosion.Play();
                     ResetMissle();
 
                 }

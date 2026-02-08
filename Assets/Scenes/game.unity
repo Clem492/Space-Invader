@@ -4396,7 +4396,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Insert Coin
+  m_text: ' Insert Coin'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a7093dbb6ac99d44983413aa0b6cedb1, type: 2}
   m_sharedMaterial: {fileID: -698960727081441394, guid: a7093dbb6ac99d44983413aa0b6cedb1, type: 2}
@@ -5360,7 +5360,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 5a09ade81f65a79438306658baa7d2d8, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5457,7 +5457,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: aa1ac6982dbfbb44a8cead24db566879, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -5554,7 +5554,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 3439ca5e6d180d04ebaa888fc82afc8d, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5688,7 +5688,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: e4a7aefd953efba48a46c0760dfa0f88, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -6103,7 +6103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missilePrefab: {fileID: 1041019289899147033, guid: 31bd2df92ee44544eb5ac3fe90c78bb1, type: 3}
   firePoint: {fileID: 737304366}
-  poolSize: 10
+  poolSize: 1
   uFOManager: {fileID: 2001377359}
 --- !u!1001 &845822195328900813
 PrefabInstance:

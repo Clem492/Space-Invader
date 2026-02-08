@@ -277,25 +277,25 @@ public class GameManager : MonoBehaviour
             //mouvement des enemeie basique
 
             _stepdistance = 0.05f;
-            missilInterval -= 0.5f;
+            missilInterval = 0.5f;
         }
         else if (currentLevel == Level.level2)
         {
             //mouvement un peux plus grand que le précédent
             _stepdistance += 0.05f;
-            missilInterval -= 0.5f;
+            missilInterval -= 0.07f;
         }
         else if (currentLevel == Level.level3)
         {
             //mouvement un peux plus grand que le précédent
             _stepdistance += 0.05f;
-            missilInterval -= 0.5f;
+            missilInterval -= 0.07f;
         }
         else if (currentLevel == Level.level4)
         {
             //mouvement un peux plus grand que le précédent
             _stepdistance += 0.05f;
-            missilInterval -= 0.5f;
+            missilInterval -= 0.07f;
         }
         
     }
