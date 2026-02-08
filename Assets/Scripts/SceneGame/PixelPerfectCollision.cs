@@ -4,11 +4,13 @@ public class PixelPerfectCollision : MonoBehaviour
 {
     public SpriteRenderer shieldSprite; // SpriteRenderer du bouclier 
     private Texture2D shieldTexture;    // Texture associée au sprite du bouclier 
+    private Texture2D shieldTextureStart;
     public GameObject maskPrefab;       // prefab du MissileSplash avec son SpriteMask
     public float yOffset = 0;           //Offset verticale en espace monde 
 
     private void Start()
     {
+        shieldTextureStart = gameObject.GetComponent<SpriteRenderer>().sprite.texture;
         //crée une copie de la texture pour la rendre modifiable 
         shieldTexture = Instantiate(shieldSprite.sprite.texture);
 
@@ -19,6 +21,7 @@ public class PixelPerfectCollision : MonoBehaviour
             Debug.LogError("?? La Texture bouclier doit être lisible !");
         }
 
+        
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -40,6 +43,22 @@ public class PixelPerfectCollision : MonoBehaviour
                 collision.gameObject.GetComponent<PlayerMissile>()?.ResetMissle();
                 collision.gameObject.GetComponent<EnemyMissile>()?.ResetMissle();
             }
+        }
+
+        if (collision.CompareTag("enemy"))
+        {
+            BoxCollider2D enemyCollider = collision.GetComponent<BoxCollider2D>();
+            if (enemyCollider == null)
+            {
+                Debug.Log("L'enemie n'a pas de collider2D");
+                return;
+            }
+            if (IsPixelHitAndModify(enemyCollider, out Vector2 worldImpactPoint, out Vector2 uvImpactPoint))
+            {
+                //TODO: Pool à créer les gars 
+                InstantiateMaskAtPosition(worldImpactPoint);
+            }
+
         }
     }
 
@@ -123,4 +142,18 @@ public class PixelPerfectCollision : MonoBehaviour
 
 
     }
+
+    public void ResetShield()
+    {
+        GameObject[] goToDestroy = GameObject.FindGameObjectsWithTag("Splash");
+        foreach (GameObject go in goToDestroy)
+        {
+            Destroy (go);
+        }
+
+        shieldTexture = Instantiate(shieldTextureStart);
+
+        shieldSprite.sprite = Sprite.Create(shieldTexture, shieldSprite.sprite.rect, new Vector2(0.5f, 0.5f), shieldSprite.sprite.pixelsPerUnit);
+    }
+
 }

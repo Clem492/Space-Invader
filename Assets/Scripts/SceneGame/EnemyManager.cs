@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -51,19 +53,59 @@ public class EnemyManager : MonoBehaviour
 
     private bool needSwtichLevel = false;
     private bool firstStart = true;
+
+   
+    public GameObject[] tabShield;
+
+
+    public int poolSize = 3;
+    private GameObject[] missilePool;
+    private int currentMissileIndex = 0; //permet de commencer la recherce à cette index 
+    private Missile missile;
+
+
+
     void Start()
     {
+        missile = Missile.MissileAPrefab;
         transitingLevel = false;
         playerBoundaryX = player.GetComponent<PlayerScript>().boundary;
         playerPos = player.transform.position;
         enemies = new GameObject[rows, cols];
         carreStartPos = carreInvisible.transform.position;
-       
+
+
+        missilePool = new GameObject[poolSize];
+        for (int i = 0; i < poolSize; i++)
+        {
+            if (missile == Missile.MissileAPrefab)
+            {
+                missilePool[i] = Instantiate(missileAPrefab);
+
+                missile = Missile.LaserPrefab;
+            }
+            else if (missile == Missile.LaserPrefab)
+            {
+                Debug.Log("dog");
+                missilePool[i] =  Instantiate(LaserPrefab);
+                missile = Missile.MissileCPrefab;
+            }
+            else if (missile == Missile.MissileCPrefab)
+            {
+                Debug.Log("cat");
+                missilePool[i] = Instantiate(MissileCPrefab);
+                missile = Missile.MissileAPrefab;
+            }
+            missilePool[i].SetActive(false);
+        }
+
     }
 
     private void Update()
     {
         MoveCarre();
+
+
         if (needSwtichLevel && !GameManager.Instance.ufoActive)
         {
             needSwtichLevel = false;
@@ -83,7 +125,7 @@ public class EnemyManager : MonoBehaviour
         MissileCPrefab
     }
 
-    private Missile missile = Missile.MissileAPrefab;
+    
 
     private IEnumerator DoSpawn()
     {
@@ -157,7 +199,7 @@ public class EnemyManager : MonoBehaviour
                         {
                             continue;
                         }
-
+                        
                         EnemyScript enemyScript = enemies[row, col].GetComponent<EnemyScript>();
                         if (enemyScript != null) enemyScript.ChangeSprite();
 
@@ -185,9 +227,9 @@ public class EnemyManager : MonoBehaviour
                 if (enemies[row, col] != null && enemies[row, col].activeSelf)
                 {
                     Vector3 direction = Vector3.down;
-
+                    
                     MoveEnemy(enemies[row, col], direction, _stepDistance);
-
+                    
                     yield return null;
                 }
             }
@@ -242,23 +284,21 @@ public class EnemyManager : MonoBehaviour
         {
             //TODO : Implémenter le pool de missile 
 
-            
-            if (missile == Missile.MissileAPrefab)
+            for (int i = 0; i < poolSize; i++)
             {
-                Instantiate(missileAPrefab, firePoint.position, Quaternion.identity);
-                missile = Missile.LaserPrefab;
+                int index = (currentMissileIndex + i) % poolSize;
+
+                if (!missilePool[index].activeSelf)
+                {
+                    missilePool[index].transform.position = firePoint.position;
+                    missilePool[index].transform.rotation = firePoint.rotation;
+                    missilePool[index].SetActive(true);
+                    currentMissileIndex = (index + 1) % poolSize;
+                    return; //sortir après avoir trouvé un missile 
+                }
             }
-            else if (missile == Missile.LaserPrefab)
-            {
-                Instantiate(LaserPrefab, firePoint.position, Quaternion.identity);
-                missile = Missile.MissileCPrefab;
-            }
-            else if (missile == Missile.MissileCPrefab)
-            {
-                Instantiate(MissileCPrefab, firePoint.position, Quaternion.identity);
-                missile = Missile.MissileAPrefab;
-            }
-            
+
+
         }
         else
         {
@@ -280,6 +320,12 @@ public class EnemyManager : MonoBehaviour
         newPosition.z = Mathf.Round(newPosition.z * 100f) / 100f;
 
         enemy.transform.position = newPosition;
+        if (enemy.transform.position.y <= -9.5f)
+        {
+
+            StartCoroutine(GameManager.Instance.GameOver());
+        }
+
     }
 
     public void ReturnEnemy(GameObject enemy, GameObject prefab)
@@ -316,7 +362,7 @@ public class EnemyManager : MonoBehaviour
 
         int duratin = explosionDuration;
         while (duratin > 0)
-        {
+        { 
             duratin--;
             yield return new WaitForEndOfFrame();
         }
@@ -369,8 +415,11 @@ public class EnemyManager : MonoBehaviour
         transitingMovement = true;
         yield return new WaitUntil(() => carreInvisible.transform.position.x >= 0);
         player.SetActive(false);
-        // TODO : reset les boucliers
-
+        
+        for (int i = 0; i < tabShield.Length; i++)
+        {
+            tabShield[i].GetComponent<PixelPerfectCollision>().ResetShield();
+        }
         yield return new WaitUntil(() => carreInvisible.gameObject.transform.position.x >= 45);
         transitingMovement = false;
         carreInvisible.transform.position = carreStartPos;
@@ -400,10 +449,7 @@ public class EnemyManager : MonoBehaviour
         
     }
 
-
-
-    //TODO : detruire les missile du joueur et des enemies si collision
-    //TODO : exploser le missile du joueur au limite meme chose pour les enemie 
-    //TODO : animation d'explosion quand les enemie touche un shield 
+ 
+    
     //TODO : implémenter le son 
 }

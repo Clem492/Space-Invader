@@ -177,3 +177,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   maxHeight: 10
+  explosionMissile: {fileID: 1978862715369335028, guid: b8cd708223d090649bde5d049ca88de9, type: 3}

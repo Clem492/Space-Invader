@@ -42,8 +42,6 @@ public class GameManager : MonoBehaviour
 
     public Level currentLevel;
 
-    public float newStepDistance;
-    public float newMissileIntervale;
 
     public bool ufoActive = false;
     public int compteurUfoScore = 0;
@@ -153,7 +151,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameOver()
     {
-        
+        IsPaused= true;
         gameOverText.GetComponent<TextManager>().enabled = true;
         SaveScore();
         for (int i = 0; i < 100; i++)
@@ -275,26 +273,27 @@ public class GameManager : MonoBehaviour
         if (currentLevel == Level.level1)
         {
             //mouvement des enemeie basique
-            _stepdistance += newStepDistance;
-            missilInterval -= newMissileIntervale;
+
+            _stepdistance = 0.05f;
+            missilInterval -= 0.5f;
         }
         else if (currentLevel == Level.level2)
         {
             //mouvement un peux plus grand que le précédent
-            _stepdistance += newStepDistance;
-            missilInterval -= newMissileIntervale;
+            _stepdistance += 0.05f;
+            missilInterval -= 0.5f;
         }
         else if (currentLevel == Level.level3)
         {
             //mouvement un peux plus grand que le précédent
-            _stepdistance += newStepDistance;
-            missilInterval -= newMissileIntervale;
+            _stepdistance += 0.05f;
+            missilInterval -= 0.5f;
         }
         else if (currentLevel == Level.level4)
         {
             //mouvement un peux plus grand que le précédent
-            _stepdistance += newStepDistance;
-            missilInterval -= newMissileIntervale;
+            _stepdistance += 0.05f;
+            missilInterval -= 0.5f;
         }
         
     }

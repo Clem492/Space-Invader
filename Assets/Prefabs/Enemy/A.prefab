@@ -147,7 +147,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -177,7 +177,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   minHeight: -10
+  name: A
   MissileFrame1: {fileID: 21300000, guid: 56bf7fe21bdf18447b528279d8d80005, type: 3}
   MissileFrame2: {fileID: 21300000, guid: 86e908c026ff21d4794afa8b7badbca6, type: 3}
   MissileFrame3: {fileID: 21300000, guid: c99a5b0cbd8d4474f82ff0bce6611675, type: 3}
   MissileFrame4: {fileID: 21300000, guid: 40877748d7862444e8e8a22bc31a9322, type: 3}
+  explosionMissile: {fileID: 5810276623276477163, guid: accc707d13b86ca49941e7e7238208b8, type: 3}

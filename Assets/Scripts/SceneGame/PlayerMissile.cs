@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,15 +8,25 @@ public class PlayerMissile : MonoBehaviour
     public float speed = 10f;
     public float maxHeight = 10f;
 
-    [SerializeField] private EnemyManager enemyManager;
-    [SerializeField] private GameObject explosionEnemi;
 
+    [SerializeField] private GameObject explosionMissile;
+
+
+
+    private void Start()
+    {
+       
+    }
 
     private void Update()
     {
         transform.Translate(Vector3.up *  speed * Time.deltaTime);
 
-        if (transform.position.y > maxHeight) ResetMissle();
+        if (transform.position.y > maxHeight)
+        {
+            Instantiate(explosionMissile, transform.position, Quaternion.identity);
+            ResetMissle();
+        }
 
 
  
@@ -86,6 +97,72 @@ public class PlayerMissile : MonoBehaviour
 
             ResetMissle();
         }
+
+        if (collision.CompareTag("Missile"))
+        {
+            if (collision.GetComponent<EnemyMissile>().name == "A")
+            {
+                int random = Random.Range(0, 2);
+                if (random == 0)
+                {
+                    Instantiate(explosionMissile, collision.transform.position, Quaternion.identity);
+                    ResetMissle();
+
+                }
+                if (random == 1)
+                {
+                    
+                    //détruit le missile enemie 
+                    EnemyMissile enemyMissile = collision.GetComponent<EnemyMissile>();
+                    Instantiate(enemyMissile.explosionMissile, collision.transform.position, Quaternion.identity);
+                    enemyMissile.ResetMissle();
+                    ResetMissle();
+                }
+                
+            }
+            if (collision.GetComponent<EnemyMissile>().name == "B")
+            {
+                int random = Random.Range(0, 100);
+                if ( random <= 75)
+                {
+                    //détruit le missile enemie 
+                    EnemyMissile enemyMissile = collision.GetComponent<EnemyMissile>();
+                    Instantiate(enemyMissile.explosionMissile, collision.transform.position, Quaternion.identity);
+                    enemyMissile.ResetMissle();
+                    ResetMissle();
+
+                }
+                if (random > 75)
+                {
+                    
+                    Instantiate(explosionMissile, collision.transform.position, Quaternion.identity);
+                    ResetMissle();
+                }
+               
+            }
+            if (collision.GetComponent<EnemyMissile>().name == "C")
+            {
+                int random = Random.Range(0, 2);
+                if (random == 0)
+                {
+                    Instantiate(explosionMissile, collision.transform.position, Quaternion.identity);
+                    ResetMissle();
+                }
+                if (random == 1)
+                {
+                    //détruit le missile enemie 
+                    EnemyMissile enemyMissile = collision.GetComponent<EnemyMissile>();
+                    Instantiate(enemyMissile.explosionMissile, collision.transform.position, Quaternion.identity);
+                    enemyMissile.ResetMissle();
+                    ResetMissle();
+
+                }
+                
+            }
+        }
+        
+        
     } 
+
 
 }

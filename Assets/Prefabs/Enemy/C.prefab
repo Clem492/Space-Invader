@@ -102,12 +102,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc4ba6ee168f90418ed281a2614635c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 6
   minHeight: -10
+  name: C
   MissileFrame1: {fileID: 21300000, guid: e3934e1ef148c6244951dd315380ba98, type: 3}
   MissileFrame2: {fileID: 21300000, guid: 80ecf78bb05a43643ba6aab1499d9d80, type: 3}
   MissileFrame3: {fileID: 21300000, guid: 7917cfde8f224b64ea16d71cd5dba387, type: 3}
   MissileFrame4: {fileID: 21300000, guid: a6992964c234ac34aa646d9ccd506ad1, type: 3}
+  explosionMissile: {fileID: 5810276623276477163, guid: accc707d13b86ca49941e7e7238208b8, type: 3}
 --- !u!50 &3470837512856044019
 Rigidbody2D:
   serializedVersion: 5
@@ -165,7 +167,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

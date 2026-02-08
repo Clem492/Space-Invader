@@ -3,24 +3,29 @@ using UnityEngine;
 
 public class EnemyMissile : MonoBehaviour
 {
-    public float speed = 10f;
+    public float speed;
     public float minHeight = 10f;
 
-    
+    public string name = "";
 
     //Sprite utiliser pour les animations du missle
     [SerializeField] Sprite MissileFrame1, MissileFrame2, MissileFrame3, MissileFrame4;
-
+    [SerializeField] public GameObject explosionMissile;
     private void Start()
     {
         StartCoroutine(DoAnimationMissile());
+
     }
 
     private void Update()
     {
         transform.Translate(Vector3.down * speed * Time.deltaTime);
 
-        if (transform.position.y < minHeight) ResetMissle();
+        if (transform.position.y < minHeight)
+        {
+            Instantiate(explosionMissile, transform.position, Quaternion.identity);
+            ResetMissle();
+        }
 
 
 
@@ -37,7 +42,7 @@ public class EnemyMissile : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
 
-            
+
             collision.GetComponent<PlayerScript>().StartCoroutine(collision.GetComponent<PlayerScript>().DoPlayerExplosion());
             ResetMissle();
             
@@ -81,5 +86,7 @@ public class EnemyMissile : MonoBehaviour
         }
 
     }
+
+
 
 }
