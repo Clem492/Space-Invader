@@ -182,7 +182,7 @@ public class EnemyManager : MonoBehaviour
         while (remainingEnemies >0)
         {
 
-            /*SoundToEnnemieRemaining();*/
+            SoundToEnnemieRemaining();
             bool boundaryReached = false;
 
             for (int row = rows - 1; row >= 0; row--)
@@ -284,7 +284,7 @@ public class EnemyManager : MonoBehaviour
         Transform firePoint = shooter.transform.Find("FirePoint");
         if (firePoint != null)
         {
-            //TODO : Implémenter le pool de missile 
+            
 
             for (int i = 0; i < poolSize; i++)
             {
