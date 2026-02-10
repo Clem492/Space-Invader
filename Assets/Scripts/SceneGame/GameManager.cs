@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
         GetHightScore();
         ResetUIScreen();
         CoinMenu();
-        Debug.Log(currentLevel);
+
     }
 
     private void Update()

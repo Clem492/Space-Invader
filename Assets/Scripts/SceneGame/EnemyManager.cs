@@ -86,13 +86,13 @@ public class EnemyManager : MonoBehaviour
             }
             else if (missile == Missile.LaserPrefab)
             {
-                Debug.Log("dog");
+
                 missilePool[i] =  Instantiate(LaserPrefab);
                 missile = Missile.MissileCPrefab;
             }
             else if (missile == Missile.MissileCPrefab)
             {
-                Debug.Log("cat");
+
                 missilePool[i] = Instantiate(MissileCPrefab);
                 missile = Missile.MissileAPrefab;
             }

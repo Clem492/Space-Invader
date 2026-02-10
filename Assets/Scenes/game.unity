@@ -1305,7 +1305,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: shield (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6305116588883995498, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
+      propertyPath: enemyMaskPrefab
+      value: 
+      objectReference: {fileID: 4996214739731661492, guid: 39d422f1efc324c4d98862873d015a45, type: 3}
+    - target: {fileID: 6305116588883995498, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
+      propertyPath: playerMaskPrefab
+      value: 
+      objectReference: {fileID: 4996214739731661492, guid: 586fabfc25c23fc4ab847103066d6b70, type: 3}
+    - target: {fileID: 6305116588883995498, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
+      propertyPath: originalShieldTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: f869e113465e838478d56131f01d2094, type: 3}
+    m_RemovedComponents:
+    - {fileID: 6305116588883995498, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -1393,7 +1406,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: shield (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6305116588883995498, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
+      propertyPath: enemyMaskPrefab
+      value: 
+      objectReference: {fileID: 4996214739731661492, guid: 39d422f1efc324c4d98862873d015a45, type: 3}
+    - target: {fileID: 6305116588883995498, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
+      propertyPath: playerMaskPrefab
+      value: 
+      objectReference: {fileID: 4996214739731661492, guid: 586fabfc25c23fc4ab847103066d6b70, type: 3}
+    - target: {fileID: 6305116588883995498, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
+      propertyPath: originalShieldTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: f869e113465e838478d56131f01d2094, type: 3}
+    m_RemovedComponents:
+    - {fileID: 6305116588883995498, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -1697,9 +1723,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shieldSprite: {fileID: 541408073}
-  maskPrefab: {fileID: 4996214739731661492, guid: 39d422f1efc324c4d98862873d015a45, type: 3}
+  originalShieldTexture: {fileID: 2800000, guid: f869e113465e838478d56131f01d2094, type: 3}
+  enemyMaskPrefab: {fileID: 4996214739731661492, guid: 39d422f1efc324c4d98862873d015a45, type: 3}
+  playerMaskPrefab: {fileID: 4996214739731661492, guid: 586fabfc25c23fc4ab847103066d6b70, type: 3}
   yOffset: 0
-  poolSize: 400
+  projectileLayer: 6
 --- !u!212 &541408073 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 829266890437099173, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
@@ -1882,9 +1910,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shieldSprite: {fileID: 738508963}
-  maskPrefab: {fileID: 4996214739731661492, guid: 39d422f1efc324c4d98862873d015a45, type: 3}
+  originalShieldTexture: {fileID: 2800000, guid: f869e113465e838478d56131f01d2094, type: 3}
+  enemyMaskPrefab: {fileID: 4996214739731661492, guid: 39d422f1efc324c4d98862873d015a45, type: 3}
+  playerMaskPrefab: {fileID: 4996214739731661492, guid: 586fabfc25c23fc4ab847103066d6b70, type: 3}
   yOffset: 0
-  poolSize: 400
+  projectileLayer: 6
 --- !u!212 &738508963 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 829266890437099173, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
@@ -2725,7 +2755,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: shield (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6305116588883995498, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
+      propertyPath: enemyMaskPrefab
+      value: 
+      objectReference: {fileID: 4996214739731661492, guid: 39d422f1efc324c4d98862873d015a45, type: 3}
+    - target: {fileID: 6305116588883995498, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
+      propertyPath: playerMaskPrefab
+      value: 
+      objectReference: {fileID: 4996214739731661492, guid: 586fabfc25c23fc4ab847103066d6b70, type: 3}
+    - target: {fileID: 6305116588883995498, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
+      propertyPath: originalShieldTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: f869e113465e838478d56131f01d2094, type: 3}
+    m_RemovedComponents:
+    - {fileID: 6305116588883995498, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -3442,9 +3485,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shieldSprite: {fileID: 1294811899}
-  maskPrefab: {fileID: 4996214739731661492, guid: 39d422f1efc324c4d98862873d015a45, type: 3}
+  originalShieldTexture: {fileID: 2800000, guid: f869e113465e838478d56131f01d2094, type: 3}
+  enemyMaskPrefab: {fileID: 4996214739731661492, guid: 39d422f1efc324c4d98862873d015a45, type: 3}
+  playerMaskPrefab: {fileID: 4996214739731661492, guid: 586fabfc25c23fc4ab847103066d6b70, type: 3}
   yOffset: 0
-  poolSize: 400
+  projectileLayer: 6
 --- !u!4 &1294811902 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1730221422613729484, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
@@ -4336,9 +4381,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shieldSprite: {fileID: 1661630943}
-  maskPrefab: {fileID: 4996214739731661492, guid: 39d422f1efc324c4d98862873d015a45, type: 3}
+  originalShieldTexture: {fileID: 2800000, guid: f869e113465e838478d56131f01d2094, type: 3}
+  enemyMaskPrefab: {fileID: 4996214739731661492, guid: 39d422f1efc324c4d98862873d015a45, type: 3}
+  playerMaskPrefab: {fileID: 4996214739731661492, guid: 586fabfc25c23fc4ab847103066d6b70, type: 3}
   yOffset: 0
-  poolSize: 400
+  projectileLayer: 6
 --- !u!212 &1661630943 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 829266890437099173, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
@@ -5025,6 +5072,7 @@ GameObject:
   - component: {fileID: 2001377357}
   - component: {fileID: 2001377356}
   - component: {fileID: 2001377359}
+  - component: {fileID: 2001377360}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -5113,6 +5161,20 @@ MonoBehaviour:
   ufoSpawningPoint2: {fileID: 542414924}
   poolSize: 1
   compteurTirUfo: 0
+--- !u!114 &2001377360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001377355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 406b10a017faeaa41a9dde755a406dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyMask_prefab: {fileID: 4996214739731661492, guid: 39d422f1efc324c4d98862873d015a45, type: 3}
+  playerMask_prefab: {fileID: 4996214739731661492, guid: 586fabfc25c23fc4ab847103066d6b70, type: 3}
 --- !u!1 &2005812656
 GameObject:
   m_ObjectHideFlags: 0
@@ -6463,7 +6525,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: shield
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6305116588883995498, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
+      propertyPath: enemyMaskPrefab
+      value: 
+      objectReference: {fileID: 4996214739731661492, guid: 39d422f1efc324c4d98862873d015a45, type: 3}
+    - target: {fileID: 6305116588883995498, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
+      propertyPath: playerMaskPrefab
+      value: 
+      objectReference: {fileID: 4996214739731661492, guid: 586fabfc25c23fc4ab847103066d6b70, type: 3}
+    - target: {fileID: 6305116588883995498, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
+      propertyPath: originalShieldTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: f869e113465e838478d56131f01d2094, type: 3}
+    m_RemovedComponents:
+    - {fileID: 6305116588883995498, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

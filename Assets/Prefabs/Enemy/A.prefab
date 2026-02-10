@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3394750280697978347}
   - component: {fileID: 3244188434771882690}
   - component: {fileID: -1805077127528692185}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: A
-  m_TagString: Missile
+  m_TagString: EnemyMissile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

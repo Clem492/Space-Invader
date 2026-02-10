@@ -49,10 +49,7 @@ public class UFOManager : MonoBehaviour
                 shootRequiredToSpawn.Enqueue(14);
             }
             
-            for (int i = 0; i < shootRequiredToSpawn.Count; i++)
-            {
-                Debug.Log(shootRequiredToSpawn.ElementAt(i));
-            }
+           
            
         }
         if (GameManager.Instance.currentLevel == GameManager.Level.level2)
@@ -63,10 +60,7 @@ public class UFOManager : MonoBehaviour
             {
                 shootRequiredToSpawn.Enqueue(14);
             }
-            for (int i = 0; i < shootRequiredToSpawn.Count; i++)
-            {
-                Debug.Log(shootRequiredToSpawn.ElementAt(i));
-            }
+            
         }
         if (GameManager.Instance.currentLevel == GameManager.Level.level3)
         {
@@ -76,10 +70,7 @@ public class UFOManager : MonoBehaviour
             {
                 shootRequiredToSpawn.Enqueue(14);
             }
-            for (int i = 0; i < shootRequiredToSpawn.Count; i++)
-            {
-                Debug.Log(shootRequiredToSpawn.ElementAt(i));
-            }
+            
         }
         if (GameManager.Instance.currentLevel == GameManager.Level.level4)
         {
@@ -87,10 +78,7 @@ public class UFOManager : MonoBehaviour
             shootRequiredToSpawn.Enqueue(22);
             shootRequiredToSpawn.Enqueue(29);
             shootRequiredToSpawn.Enqueue(14);
-            for (int i = 0; i < shootRequiredToSpawn.Count; i++)
-            {
-                Debug.Log(shootRequiredToSpawn.ElementAt(i));
-            }
+            
         }
         
     }

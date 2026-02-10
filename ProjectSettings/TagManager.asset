@@ -9,6 +9,8 @@ TagManager:
   - shield
   - ufo
   - Splash
+  - PlayerMissile
+  - EnemyMissile
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - enemy
   - Water
   - UI
-  - PlayerMissile
+  - Missile
   - shield
   - 
   - 
