@@ -8,6 +8,10 @@ public class PixelPerfectCollision : MonoBehaviour
     public GameObject maskPrefab;       // prefab du MissileSplash avec son SpriteMask
     public float yOffset = 0;           //Offset verticale en espace monde 
 
+    public int poolSize = 1;
+    private GameObject[] maskPool;
+    private int currentMaskIndex = 0; //permet de commencer la recherce à cette index 
+
     private void Start()
     {
         shieldTextureStart = gameObject.GetComponent<SpriteRenderer>().sprite.texture;
@@ -20,8 +24,13 @@ public class PixelPerfectCollision : MonoBehaviour
         {
             Debug.LogError("?? La Texture bouclier doit être lisible !");
         }
+        maskPool = new GameObject[poolSize];
+        for (int i = 0; i < poolSize; i++)
+        {
+            maskPool[i] = Instantiate(maskPrefab);
+            maskPool[i].SetActive(false);
+        }
 
-        
     }
 
     private void OnTriggerStay2D(Collider2D collision)
