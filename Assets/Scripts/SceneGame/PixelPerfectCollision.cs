@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PixelPerfectCollision : MonoBehaviour
 {
@@ -65,6 +66,10 @@ public class PixelPerfectCollision : MonoBehaviour
             if (IsPixelHitAndModify(enemyCollider, out Vector2 worldImpactPoint, out Vector2 uvImpactPoint))
             {
                 //TODO: Pool à créer les gars 
+
+
+
+
                 InstantiateMaskAtPosition(worldImpactPoint);
             }
 
@@ -143,11 +148,25 @@ public class PixelPerfectCollision : MonoBehaviour
 
     private void InstantiateMaskAtPosition(Vector2 wordlPosition)
     {
-        //TODO : implémenter un système de pooling
-        GameObject maskInstance = Instantiate (maskPrefab, wordlPosition, Quaternion.identity);
+       
+        for (int i = 0; i < poolSize; i++)
+        {
+            int index = (currentMaskIndex + i) % poolSize;
+
+            if (!maskPool[index].activeSelf)
+            {
+                maskPool[index].transform.position = new Vector3(wordlPosition.x, wordlPosition.y, shieldSprite.transform.position.z); ;
+                maskPool[index].transform.rotation = Quaternion.identity;
+                maskPool[index].SetActive(true);
+                currentMaskIndex = (index + 1) % poolSize;
+                return; //sortir après avoir trouvé un missile 
+            }
+        }
+
+       /* GameObject maskInstance = Instantiate (maskPrefab, wordlPosition, Quaternion.identity);
 
         //positionne le masque sur le même z que le bouclier 
-        maskInstance.transform.position = new Vector3 (wordlPosition.x, wordlPosition.y, shieldSprite.transform.position.z);
+        maskInstance.transform.position = new Vector3 (wordlPosition.x, wordlPosition.y, shieldSprite.transform.position.z);*/
 
 
     }

@@ -1699,6 +1699,7 @@ MonoBehaviour:
   shieldSprite: {fileID: 541408073}
   maskPrefab: {fileID: 4996214739731661492, guid: 39d422f1efc324c4d98862873d015a45, type: 3}
   yOffset: 0
+  poolSize: 400
 --- !u!212 &541408073 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 829266890437099173, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
@@ -1883,6 +1884,7 @@ MonoBehaviour:
   shieldSprite: {fileID: 738508963}
   maskPrefab: {fileID: 4996214739731661492, guid: 39d422f1efc324c4d98862873d015a45, type: 3}
   yOffset: 0
+  poolSize: 400
 --- !u!212 &738508963 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 829266890437099173, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
@@ -3442,6 +3444,7 @@ MonoBehaviour:
   shieldSprite: {fileID: 1294811899}
   maskPrefab: {fileID: 4996214739731661492, guid: 39d422f1efc324c4d98862873d015a45, type: 3}
   yOffset: 0
+  poolSize: 400
 --- !u!4 &1294811902 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1730221422613729484, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
@@ -4335,6 +4338,7 @@ MonoBehaviour:
   shieldSprite: {fileID: 1661630943}
   maskPrefab: {fileID: 4996214739731661492, guid: 39d422f1efc324c4d98862873d015a45, type: 3}
   yOffset: 0
+  poolSize: 400
 --- !u!212 &1661630943 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 829266890437099173, guid: ef7de361262f94d4188fd0d5ea012652, type: 3}
