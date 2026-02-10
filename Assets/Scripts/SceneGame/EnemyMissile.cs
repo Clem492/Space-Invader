@@ -50,11 +50,7 @@ public class EnemyMissile : MonoBehaviour
 
     }
 
-   public void StartCoroutine()
-    {
-        Debug.Log("j'ai démarer la coroutine");
-        StartCoroutine(DoAnimationMissile());
-    }
+  
 
     public IEnumerator DoAnimationMissile()
     {
